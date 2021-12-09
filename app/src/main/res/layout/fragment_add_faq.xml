@@ -1,0 +1,101 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    tools:context="Fragment.AddFaqFragment">
+
+    <TextView
+        android:id="@+id/txtFaqTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="80dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Faq Title"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etFaqTitle"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/edittext_background"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="top"
+        android:isScrollContainer="true"
+        android:padding="10dp"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/txtFaqTitle" />
+
+    <TextView
+        android:id="@+id/txtFaqDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Faq Description"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etFaqTitle" />
+
+    <EditText
+        android:id="@+id/etFaqDescription"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/edittext_background"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="top"
+        android:isScrollContainer="true"
+        android:padding="10dp"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/txtFaqDescription" />
+
+    <ImageView
+        android:id="@+id/ivImageCapture"
+        android:layout_width="100dp"
+        android:padding="5dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        android:scaleType="fitXY"
+        android:background="@drawable/custom_image_background"
+        android:clickable="true"
+        android:src="@drawable/ic_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etFaqDescription" />
+
+    <ImageView
+        android:id="@+id/ivVideoCapture"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/custom_image_background"
+        android:clickable="true"
+        android:src="@drawable/ic_video"
+        app:layout_constraintStart_toEndOf="@+id/ivImageCapture"
+        app:layout_constraintTop_toBottomOf="@+id/etFaqDescription" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="550dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/button_background"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Submit"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etFaqDescription" />
+</androidx.constraintlayout.widget.ConstraintLayout>
