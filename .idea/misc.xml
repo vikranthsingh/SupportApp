@@ -18,7 +18,7 @@
         <entry key="..\:/Users/emr.LVPEIUSERS/AndroidStudioProjects/EMRSupportApp/app/src/main/res/font/roboto_family.xml" value="0.1" />
         <entry key="..\:/Users/emr.LVPEIUSERS/AndroidStudioProjects/EMRSupportApp/app/src/main/res/layout/activity_dashboard.xml" value="0.1" />
         <entry key="..\:/Users/emr.LVPEIUSERS/AndroidStudioProjects/EMRSupportApp/app/src/main/res/layout/activity_image.xml" value="0.27401477832512317" />
-        <entry key="..\:/Users/emr.LVPEIUSERS/AndroidStudioProjects/EMRSupportApp/app/src/main/res/layout/activity_login_screen.xml" value="0.25" />
+        <entry key="..\:/Users/emr.LVPEIUSERS/AndroidStudioProjects/EMRSupportApp/app/src/main/res/layout/activity_login_screen.xml" value="0.22" />
         <entry key="..\:/Users/emr.LVPEIUSERS/AndroidStudioProjects/EMRSupportApp/app/src/main/res/layout/activity_main.xml" value="0.21213054187192118" />
         <entry key="..\:/Users/emr.LVPEIUSERS/AndroidStudioProjects/EMRSupportApp/app/src/main/res/layout/activity_video.xml" value="0.264453125" />
         <entry key="..\:/Users/emr.LVPEIUSERS/AndroidStudioProjects/EMRSupportApp/app/src/main/res/layout/cusstom_alertdialog.xml" value="0.25" />
@@ -27,8 +27,10 @@
         <entry key="..\:/Users/emr.LVPEIUSERS/AndroidStudioProjects/EMRSupportApp/app/src/main/res/layout/fragment_add_faq.xml" value="0.25" />
         <entry key="..\:/Users/emr.LVPEIUSERS/AndroidStudioProjects/EMRSupportApp/app/src/main/res/layout/fragment_faq_indo.xml" value="0.33" />
         <entry key="..\:/Users/emr.LVPEIUSERS/AndroidStudioProjects/EMRSupportApp/app/src/main/res/layout/fragment_faq_info.xml" value="0.25" />
-        <entry key="..\:/Users/emr.LVPEIUSERS/AndroidStudioProjects/EMRSupportApp/app/src/main/res/layout/fragment_faq_list_.xml" value="0.67" />
+        <entry key="..\:/Users/emr.LVPEIUSERS/AndroidStudioProjects/EMRSupportApp/app/src/main/res/layout/fragment_faq_list_.xml" value="0.25" />
         <entry key="..\:/Users/emr.LVPEIUSERS/AndroidStudioProjects/EMRSupportApp/app/src/main/res/layout/fragment_query_list.xml" value="0.18" />
+        <entry key="..\:/Users/emr.LVPEIUSERS/AndroidStudioProjects/EMRSupportApp/app/src/main/res/layout/fragment_raised_ticket.xml" value="0.275" />
+        <entry key="..\:/Users/emr.LVPEIUSERS/AndroidStudioProjects/EMRSupportApp/app/src/main/res/layout/fragment_training.xml" value="0.27401477832512317" />
         <entry key="..\:/Users/emr.LVPEIUSERS/AndroidStudioProjects/EMRSupportApp/app/src/main/res/layout/query_list_cardview.xml" value="0.5" />
         <entry key="..\:/Users/emr.LVPEIUSERS/AndroidStudioProjects/EMRSupportApp/app/src/main/res/layout/toolbar.xml" value="0.1" />
         <entry key="..\:/Users/emr.LVPEIUSERS/AndroidStudioProjects/EMRSupportApp/app/src/main/res/menu/menu.xml" value="0.275" />

@@ -6,6 +6,8 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.emrsupportapp.interfaces.TodoDao;
+
 @Database(entities = {FaqTodo.class}, version = 1)
 public abstract class DatabaseHelper extends RoomDatabase {
     public abstract TodoDao todoDao();

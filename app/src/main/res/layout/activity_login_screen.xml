@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginScreenActivity">
+    tools:context=".activities.LoginScreenActivity">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtLayoutUsername"
@@ -27,9 +27,9 @@
             android:id="@+id/etTxtUsername"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="22sp"
             android:fontFamily="@font/roboto_medium"
-            android:hint="Username" />
+            android:hint="Username"
+            android:textSize="22sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -54,9 +54,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/roboto_medium"
-            android:textSize="22sp"
             android:hint="Password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textSize="22sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -71,4 +71,19 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtLayoutPassword" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/emr_logo"
+        app:layout_constraintBottom_toTopOf="@+id/txtLayoutUsername"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.82"
+        app:civ_border_width="2dp"
+        app:civ_border_color="@color/purple_500">
+
+    </de.hdodenhof.circleimageview.CircleImageView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

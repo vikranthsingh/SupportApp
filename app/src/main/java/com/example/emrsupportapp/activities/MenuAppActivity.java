@@ -1,4 +1,4 @@
-package com.example.emrsupportapp;
+package com.example.emrsupportapp.activities;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -16,6 +16,8 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.emrsupportapp.R;
 
 public class MenuAppActivity extends AppCompatActivity {
     private Button btnYes, btnNo;
@@ -41,7 +43,7 @@ public class MenuAppActivity extends AppCompatActivity {
     void showAlertDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(true);
+        dialog.setCancelable(false);
         dialog.setContentView(R.layout.cusstom_alertdialog);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -53,6 +55,7 @@ public class MenuAppActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();
                 editor.commit();
+                finishAffinity();
                 startActivity(new Intent(MenuAppActivity.this, LoginScreenActivity.class));
             }
         });

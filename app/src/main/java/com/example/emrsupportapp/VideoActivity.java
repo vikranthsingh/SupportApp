@@ -4,8 +4,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
@@ -21,8 +23,5 @@ public class VideoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_video);
         videoView = findViewById(R.id.videoView);
 
-        /*MediaController mediaController = new MediaController(this);
-        mediaController.setAnchorView(videoView);
-        videoView.setMediaController(mediaController);*/
     }
 }

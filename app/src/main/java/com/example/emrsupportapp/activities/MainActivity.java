@@ -18,7 +18,7 @@ import com.example.emrsupportapp.Fragment.QueryListFragment;
 import com.example.emrsupportapp.R;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends MenuAppActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

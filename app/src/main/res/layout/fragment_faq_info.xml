@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
-    tools:context="Fragment.FaqIndo_Fragment">
+    tools:context="Fragment.FaqInfo_Fragment">
 
     <TextView
         android:id="@+id/titleFaqInfo"

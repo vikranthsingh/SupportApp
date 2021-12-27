@@ -1,4 +1,4 @@
-package com.example.emrsupportapp;
+package com.example.emrsupportapp.activities;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -6,8 +6,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
-import Adapter.DashboardAdapter;
+import com.example.emrsupportapp.Adapter.DashboardAdapter;
+import com.example.emrsupportapp.R;
+import com.example.emrsupportapp.activities.MainActivity;
+import com.example.emrsupportapp.interfaces.RecyclerviewOnClickListener;
+
 
 public class DashboardActivity extends MenuAppActivity implements RecyclerviewOnClickListener {
     RecyclerView recyclerViewDashboard;
@@ -29,7 +34,21 @@ public class DashboardActivity extends MenuAppActivity implements RecyclerviewOn
 
     @Override
     public void onClickListener(int position) {
-        startActivity(new Intent(DashboardActivity.this, MainActivity.class));
+        switch (position) {
+            case 0:
+                startActivity(new Intent(DashboardActivity.this, MainActivity.class));
+                Toast.makeText(DashboardActivity.this, "Vision Guardian", Toast.LENGTH_SHORT).show();
+                break;
+            case 1:
+                startActivity(new Intent(DashboardActivity.this, MainActivity.class));
+                Toast.makeText(DashboardActivity.this, "Vision Technician", Toast.LENGTH_SHORT).show();
+                break;
+            case 2:
+                startActivity(new Intent(DashboardActivity.this, MainActivity.class));
+                Toast.makeText(DashboardActivity.this, "Community Screening Program", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
     }
 
     @Override

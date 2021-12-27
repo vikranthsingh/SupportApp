@@ -17,6 +17,9 @@ public class FaqTodo {
     @ColumnInfo(name = "description")
     String description;
 
+    @ColumnInfo(name = "created_date")
+    String createdDate;
+
     /*@ColumnInfo(name = "imagesUrl")
     String imagesUrl;
 
@@ -26,9 +29,10 @@ public class FaqTodo {
     public FaqTodo() {
     }
 
-    public FaqTodo(String title, String description) {
+    public FaqTodo(String title, String description, String createdDate) {
         this.title = title;
         this.description = description;
+        this.createdDate = createdDate;
     }
 
     public int getUid() {
@@ -55,12 +59,21 @@ public class FaqTodo {
         this.description = description;
     }
 
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
+
     @Override
     public String toString() {
         return "FaqTodo{" +
                 "\nuid=" + uid +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", createdDate='" + createdDate + '\'' +
                 '}';
     }
 }

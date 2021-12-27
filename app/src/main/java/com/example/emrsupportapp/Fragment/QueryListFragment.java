@@ -4,20 +4,23 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.example.emrsupportapp.DashboardActivity;
+import com.example.emrsupportapp.Adapter.QueryListAdapter;
 import com.example.emrsupportapp.R;
-import com.example.emrsupportapp.RecyclerviewOnClickListener;
-
-import Adapter.QueryListAdapter;
+import com.example.emrsupportapp.interfaces.RecyclerviewOnClickListener;
 
 
 public class QueryListFragment extends Fragment implements RecyclerviewOnClickListener {
@@ -25,7 +28,20 @@ public class QueryListFragment extends Fragment implements RecyclerviewOnClickLi
     String[] queryList = {"Frequent asked Questions", "Training Module", "Raised Tickets List"};
     int[] queryImages = {R.drawable.questions, R.drawable.question, R.drawable.tickets};
     FaqList_Fragment fragment;
+    Training_Fragment trainingFragment;
     FragmentManager manager;
+    RaisedTicket_Fragment raisedTicketFragment;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //setHasOptionsMenu(true);
+    }
+
+    /*@Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu, menu);
+    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,11 +59,33 @@ public class QueryListFragment extends Fragment implements RecyclerviewOnClickLi
 
     @Override
     public void onClickListener(int position) {
-        fragment = new FaqList_Fragment();
-        manager = getActivity().getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.container, new FaqList_Fragment())
-                .addToBackStack(null)
-                .commit();
+        switch (position) {
+            case 0:
+                Toast.makeText(getActivity(), "Frequent asked Questions", Toast.LENGTH_SHORT).show();
+                fragment = new FaqList_Fragment();
+                manager = getActivity().getSupportFragmentManager();
+                manager.beginTransaction().replace(R.id.container, new FaqList_Fragment())
+                        .addToBackStack(null)
+                        .commit();
+                break;
+            case 1:
+                Toast.makeText(getActivity(), "Training Module", Toast.LENGTH_SHORT).show();
+                trainingFragment = new Training_Fragment();
+                manager = getActivity().getSupportFragmentManager();
+                manager.beginTransaction().replace(R.id.container, new Training_Fragment())
+                        .addToBackStack(null)
+                        .commit();
+                break;
+            case 2:
+                Toast.makeText(getActivity(), "Raised Tickets List", Toast.LENGTH_SHORT).show();
+                raisedTicketFragment = new RaisedTicket_Fragment();
+                manager = getActivity().getSupportFragmentManager();
+                manager.beginTransaction().replace(R.id.container, new RaisedTicket_Fragment())
+                        .addToBackStack(null)
+                        .commit();
+                break;
+        }
+
     }
 
     @Override

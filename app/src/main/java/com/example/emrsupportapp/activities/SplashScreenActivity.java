@@ -1,4 +1,4 @@
-package com.example.emrsupportapp;
+package com.example.emrsupportapp.activities;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;

@@ -1,4 +1,4 @@
-package Adapter;
+package com.example.emrsupportapp.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.emrsupportapp.R;
-import com.example.emrsupportapp.RecyclerviewOnClickListener;
+import com.example.emrsupportapp.interfaces.RecyclerviewOnClickListener;
+
 
 public class QueryListAdapter extends RecyclerView.Adapter<QueryListAdapter.MyViewHolder> {
     Context context;
