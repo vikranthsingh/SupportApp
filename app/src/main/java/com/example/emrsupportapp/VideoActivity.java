@@ -22,6 +22,16 @@ public class VideoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
         videoView = findViewById(R.id.videoView);
-
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            Uri uri = Uri.parse(bundle.getString("uri"));
+            videoView.setVideoURI(uri);
+            MediaController mediaController = new MediaController(this);
+            mediaController.setAnchorView(videoView);
+            videoView.setMediaController(mediaController);
+            videoView.requestFocus();
+            videoView.seekTo(100);
+            videoView.start();
+        }
     }
 }

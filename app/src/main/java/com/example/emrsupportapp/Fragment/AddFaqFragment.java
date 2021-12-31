@@ -5,6 +5,7 @@ import static android.app.Activity.RESULT_OK;
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -46,6 +47,7 @@ import com.example.emrsupportapp.VideoActivity;
 import com.example.emrsupportapp.activities.DatabaseHelper;
 import com.example.emrsupportapp.activities.FaqTodo;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -77,8 +79,10 @@ public class AddFaqFragment extends Fragment {
     Bitmap bitmap;
     String currentPhotoPath;
     Uri imageUri;
+    Uri videoUri;
     String filename = "imageFile";
     String directoryName = "EyeSmartSupportApp";
+    File photoFile;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -112,8 +116,9 @@ public class AddFaqFragment extends Fragment {
                 //createDirectory("SaveImageDir");
                 String title = etFaqTitle.getText().toString();
                 String desc = etFaqDescription.getText().toString();
-                String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-                FaqTodo todo = new FaqTodo(title, desc, date);
+                String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+                String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+                FaqTodo todo = new FaqTodo(title, desc, currentDate, currentTime);
                 AsyncTaskTodo asyncTaskTodo = new AsyncTaskTodo();
                 asyncTaskTodo.execute(todo);
                 Log.i(TAG, "onClick: " + todo.toString());
@@ -137,15 +142,24 @@ public class AddFaqFragment extends Fragment {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 ContentResolver resolver = getContext().getContentResolver();
                 ContentValues contentValues = new ContentValues();
-                contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, filename + ".jpg");
+                contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, filename + ".jpg");     //set image name
                 contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg");
                 contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + File.separator + directoryName);
                 Uri imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
                 fos = resolver.openOutputStream(Objects.requireNonNull(imageUri));
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                Objects.requireNonNull(fos);
-                Toast.makeText(getActivity(), "Image Saved", Toast.LENGTH_SHORT).show();
+            } else {
+                //below android Q
+                String imageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
+                File image = new File(imageDir, "eyeSmart" + ".jpg");
+                fos = new FileOutputStream(image);
             }
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            try {
+                Objects.requireNonNull(fos).close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Toast.makeText(getActivity(), "Image Saved", Toast.LENGTH_SHORT).show();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             Toast.makeText(getActivity(), "Image Not Found" + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -301,19 +315,26 @@ public class AddFaqFragment extends Fragment {
                     /*Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath);
                     ivImageCapture.setImageBitmap(bitmap);*/
                     bitmap = (Bitmap) data.getExtras().get("data");
-                    ivImageCapture.setImageBitmap(bitmap);
                     saveImageToGallery(bitmap);
+                    ivImageCapture.setImageBitmap(bitmap);
+                    imageUri = getImageUri(getActivity(), bitmap);
+                    /*Uri tempUri = getImageUri(getActivity(), bitmap);
+                    File finalFile = new File(getRealPathFromUri(tempUri));*/
                     Log.i(TAG, "RESULT_OK");
-                    break;
                 }
                 break;
-            /*case REQUEST_IMAGE_PICKER_PERMISSION:
+            case REQUEST_VIDEO_CAPTURE_PERMISSION:
+                if (resultCode == RESULT_OK && data != null) {
+                    videoUri = data.getData();
+                }
+                break;
+            case REQUEST_IMAGE_PICKER_PERMISSION:
                 if (resultCode == RESULT_OK) {
-                    Uri selectedImage = data.getData();
-                    ivImageCapture.setImageURI(selectedImage);
+                    imageUri = data.getData();
+                    ivImageCapture.setImageURI(imageUri);
                     Log.i(TAG, "RESULT_OK");
                 }
-                break;*/
+                break;
         }
         /*if (requestCode == REQUEST_IMAGE_CAPTURE_PERMISSION) {
             switch (resultCode) {
@@ -333,6 +354,27 @@ public class AddFaqFragment extends Fragment {
         }*/
     }
 
+    public Uri getImageUri(Context context, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    public String getRealPathFromUri(Uri uri) {
+        String path = "";
+        if (getActivity().getContentResolver() != null) {
+            Cursor cursor = getContext().getContentResolver().query(uri, null, null, null, null);
+            if (cursor != null) {
+                cursor.moveToFirst();
+                int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                path = cursor.getString(idx);
+                cursor.close();
+            }
+        }
+        return path;
+    }
+
     private void selectImage() {
         final CharSequence[] options = {"Take Photo", "Choose from Gallery", "View Image"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -341,8 +383,10 @@ public class AddFaqFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (options[which].equals("Take Photo")) {
+                    /*File file = new File(String.valueOf(photoFile));      //1 image is not good while saving
+                    Uri imageUri = Uri.fromFile(file);*/
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri); //Here image URI should not be null. It should be path where we supposed to save Image captures from camera
                     startActivityForResult(intent, REQUEST_IMAGE_CAPTURE_PERMISSION);
                 } else if (options[which].equals("Choose from Gallery")) {
                     //To pick photo from gallery
@@ -372,10 +416,11 @@ public class AddFaqFragment extends Fragment {
                     startActivityForResult(intent, REQUEST_VIDEO_CAPTURE_PERMISSION);
                 } else if (options[which].equals("Choose from Gallery")) {
                     //To pick video from gallery
-                    Intent imagePicker = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    Intent imagePicker = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(imagePicker, REQUEST_VIDEO_PICKER_PERMISSION);
                 } else if (options[which].equals("View")) {
                     Intent intent = new Intent(getActivity(), VideoActivity.class);
+                    intent.putExtra("uri", videoUri.toString());
                     startActivity(intent);
                 }
             }

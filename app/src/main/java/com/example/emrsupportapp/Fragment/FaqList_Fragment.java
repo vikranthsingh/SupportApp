@@ -49,6 +49,7 @@ public class FaqList_Fragment extends Fragment implements FaqOnClickListener {
     FaqListAdapter adapter;
     RecyclerView recyclerViewFaqList;
     List<FaqTodo> titleList = new ArrayList<>();
+    List<FaqTodo> dateList = new ArrayList<>();
     private static final String TAG = "TAG";
     FaqTodo faqTodo;
     Calendar setCalendar;
@@ -67,6 +68,7 @@ public class FaqList_Fragment extends Fragment implements FaqOnClickListener {
             public void onClick(View v) {
                 String fromDate = txtFromDate.getText().toString();
                 String toDate = txtToDate.getText().toString();
+                getDateList(fromDate, toDate);
                 Toast.makeText(getActivity(), "FromDate : " + fromDate + "\nToDate : " + toDate, Toast.LENGTH_SHORT).show();
             }
         });
@@ -126,7 +128,7 @@ public class FaqList_Fragment extends Fragment implements FaqOnClickListener {
         titleList.add("Assists the completion of a purchase");
         titleList.add("Reassures a user about taking the next action");*/
 
-        adapter = new FaqListAdapter(getActivity(), titleList, this);
+        adapter = new FaqListAdapter(getActivity(), titleList, dateList, this);
         recyclerViewFaqList.setAdapter(adapter);
         recyclerViewFaqList.setHasFixedSize(true);
         recyclerViewFaqList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -146,7 +148,6 @@ public class FaqList_Fragment extends Fragment implements FaqOnClickListener {
             }
         }
         adapter.filterList(filteredList);
-
     }
 
 
@@ -230,6 +231,22 @@ public class FaqList_Fragment extends Fragment implements FaqOnClickListener {
         thread.start();
     }
 
+    public void getDateList(String fromDate, String toDate) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                dateList = DatabaseHelper.getInstance(getActivity()).todoDao().getDatesList(fromDate, toDate);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.refreshDateList(dateList);
+                    }
+                });
+            }
+        });
+        thread.start();
+    }
+
     /*public void getTodoById() {
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -246,7 +263,7 @@ public class FaqList_Fragment extends Fragment implements FaqOnClickListener {
     @Override
     public void faqOnClickListener(int position, FaqTodo faqTodoFromRv) {
         FragmentManager manager = getActivity().getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction().replace(R.id.container, new FaqInfo_Fragment(faqTodoFromRv)).addToBackStack(null); //Make suee before you pass this it should be initialized
+        FragmentTransaction transaction = manager.beginTransaction().replace(R.id.container, new FaqInfo_Fragment(faqTodoFromRv)).addToBackStack(null); //Make sure before you pass this it should be initialized
         transaction.commit();
     }
 }

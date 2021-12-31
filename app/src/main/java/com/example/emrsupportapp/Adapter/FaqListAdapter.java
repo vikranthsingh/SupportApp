@@ -20,11 +20,13 @@ import java.util.List;
 public class FaqListAdapter extends RecyclerView.Adapter<FaqListAdapter.MyViewHolder> {
     Context context;
     List<FaqTodo> titleList;
+    List<FaqTodo> dateList;
     FaqOnClickListener faqOnClickListener;
 
-    public FaqListAdapter(Context context, List<FaqTodo> titleList, FaqOnClickListener faqOnClickListener) {
+    public FaqListAdapter(Context context, List<FaqTodo> titleList, List<FaqTodo> dateList, FaqOnClickListener faqOnClickListener) {
         this.context = context;
         this.titleList = titleList;
+        this.dateList = dateList;
         this.faqOnClickListener = faqOnClickListener;
     }
 
@@ -49,6 +51,11 @@ public class FaqListAdapter extends RecyclerView.Adapter<FaqListAdapter.MyViewHo
     public void refresh(List<FaqTodo> titleList) {
         this.titleList.clear();
         this.titleList.addAll(titleList);
+        notifyDataSetChanged();
+    }
+    public void refreshDateList(List<FaqTodo> dateList){
+        this.dateList.clear();
+        this.dateList.addAll(dateList);
         notifyDataSetChanged();
     }
 

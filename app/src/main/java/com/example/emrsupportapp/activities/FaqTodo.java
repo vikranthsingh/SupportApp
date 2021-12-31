@@ -20,19 +20,32 @@ public class FaqTodo {
     @ColumnInfo(name = "created_date")
     String createdDate;
 
-    /*@ColumnInfo(name = "imagesUrl")
+    @ColumnInfo(name = "created_time")
+    String createdTime;
+
+    @ColumnInfo(name = "imagesUrl")
     String imagesUrl;
 
     @ColumnInfo(name = "videoUrl")
-    String videoUrl;*/
+    String videoUrl;
 
     public FaqTodo() {
     }
 
-    public FaqTodo(String title, String description, String createdDate) {
+    public FaqTodo(String title, String description, String createdDate, String createdTime) {
         this.title = title;
         this.description = description;
         this.createdDate = createdDate;
+        this.createdTime = createdTime;
+    }
+
+    public FaqTodo(String title, String description, String createdDate, String createdTime, String imagesUrl, String videoUrl) {
+        this.title = title;
+        this.description = description;
+        this.createdDate = createdDate;
+        this.createdTime = createdTime;
+        this.imagesUrl = imagesUrl;
+        this.videoUrl = videoUrl;
     }
 
     public int getUid() {
@@ -67,6 +80,30 @@ public class FaqTodo {
         this.createdDate = createdDate;
     }
 
+    public String getImagesUrl() {
+        return imagesUrl;
+    }
+
+    public void setImagesUrl(String imagesUrl) {
+        this.imagesUrl = imagesUrl;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
+    public String getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(String createdTime) {
+        this.createdTime = createdTime;
+    }
+
     @Override
     public String toString() {
         return "FaqTodo{" +
@@ -74,6 +111,9 @@ public class FaqTodo {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", createdDate='" + createdDate + '\'' +
+                ", createdTime='" + createdTime + '\'' +
+                ", imagesUrl='" + imagesUrl + '\'' +
+                ", videoUrl='" + videoUrl + '\'' +
                 '}';
     }
 }
