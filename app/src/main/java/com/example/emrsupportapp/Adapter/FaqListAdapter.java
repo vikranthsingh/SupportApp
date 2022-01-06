@@ -53,11 +53,11 @@ public class FaqListAdapter extends RecyclerView.Adapter<FaqListAdapter.MyViewHo
         this.titleList.addAll(titleList);
         notifyDataSetChanged();
     }
-    public void refreshDateList(List<FaqTodo> dateList){
+    /*public void refreshDateList(List<FaqTodo> dateList){
         this.dateList.clear();
-        this.dateList.addAll(dateList);
+        this.dateList.addAll(dateList);//I dont know what are you doing..Here data fetching correctly but at line 43 you are not using "dateList" . "titleList" this you are using...
         notifyDataSetChanged();
-    }
+    }*/
 
     public void filterList(List<FaqTodo> filteredList) {
         titleList = filteredList;

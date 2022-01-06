@@ -1,8 +1,6 @@
-package com.example.emrsupportapp.Fragment;
+package com.example.emrsupportapp.Fragment.FaqModule;
 
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
@@ -12,8 +10,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
-import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
@@ -25,15 +21,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.example.emrsupportapp.Adapter.FaqListAdapter;
 import com.example.emrsupportapp.R;
 import com.example.emrsupportapp.activities.DatabaseHelper;
 import com.example.emrsupportapp.activities.FaqTodo;
 import com.example.emrsupportapp.interfaces.FaqOnClickListener;
-import com.example.emrsupportapp.interfaces.RecyclerviewOnClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -69,7 +62,21 @@ public class FaqList_Fragment extends Fragment implements FaqOnClickListener {
                 String fromDate = txtFromDate.getText().toString();
                 String toDate = txtToDate.getText().toString();
                 getDateList(fromDate, toDate);
-                Toast.makeText(getActivity(), "FromDate : " + fromDate + "\nToDate : " + toDate, Toast.LENGTH_SHORT).show();
+
+                if (txtFromDate.getText().toString().isEmpty()) {
+                    txtFromDate.setBackgroundResource(R.drawable.custom_error_background);
+                    txtFromDate.setError("Please choose From date");
+                } else {
+                    txtFromDate.setBackgroundResource(R.drawable.edittext_background);
+                    txtFromDate.setError(null);
+                }
+                if (txtToDate.getText().toString().isEmpty()) {
+                    txtToDate.setBackgroundResource(R.drawable.custom_error_background);
+                    txtToDate.setError("Please choose To date");
+                } else {
+                    txtToDate.setBackgroundResource(R.drawable.edittext_background);
+                    txtToDate.setError(null);
+                }
             }
         });
         etSearch = view.findViewById(R.id.etSearch);
@@ -122,12 +129,6 @@ public class FaqList_Fragment extends Fragment implements FaqOnClickListener {
         getActivity().setRequestedOrientation(
                 ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        /*titleList = new ArrayList<>();
-        titleList.add("Provides a concise response quickly and effectively");
-        titleList.add("Empowers the user to confidently use the site");
-        titleList.add("Assists the completion of a purchase");
-        titleList.add("Reassures a user about taking the next action");*/
-
         adapter = new FaqListAdapter(getActivity(), titleList, dateList, this);
         recyclerViewFaqList.setAdapter(adapter);
         recyclerViewFaqList.setHasFixedSize(true);
@@ -164,7 +165,7 @@ public class FaqList_Fragment extends Fragment implements FaqOnClickListener {
                 setCalendar.set(Calendar.YEAR, year);
                 setCalendar.set(Calendar.MONTH, month);
                 setCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                CharSequence dateString = DateFormat.format("dd/MM/yyyy", setCalendar);
+                CharSequence dateString = DateFormat.format("yyyy-MM-dd", setCalendar);
                 txtFromDate.setText(dateString);
             }
         }, YEAR, MONTH, DATE);
@@ -184,7 +185,7 @@ public class FaqList_Fragment extends Fragment implements FaqOnClickListener {
                 calendar1.set(Calendar.YEAR, year);
                 calendar1.set(Calendar.MONTH, month);
                 calendar1.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                CharSequence dateString = DateFormat.format("dd/MM/yyyy", calendar1);
+                CharSequence dateString = DateFormat.format("yyyy-MM-dd", calendar1);
                 txtToDate.setText(dateString);
             }
         }, YEAR, MONTH, DATE);
@@ -239,7 +240,7 @@ public class FaqList_Fragment extends Fragment implements FaqOnClickListener {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        adapter.refreshDateList(dateList);
+                        adapter.refresh(dateList);
                     }
                 });
             }

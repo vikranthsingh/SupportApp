@@ -18,6 +18,7 @@ public interface TodoDao {
     List<FaqTodo> getAllTitleList();
 
     @Query("SELECT * FROM faq_table WHERE created_date between :fromDate AND :toDate")  //This will work
+    //@Query("SELECT * FROM faq_table WHERE strftime('%Y-%m-%d',created_date) between :fromDate AND :toDate")  //This will work
     List<FaqTodo> getDatesList(String fromDate, String toDate); // from date and ...is this what you want ? Ha ill pass the from Date from here
 
     /*@Query("SELECT * FROM faq_table")

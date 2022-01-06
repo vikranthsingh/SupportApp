@@ -32,13 +32,6 @@ public class FaqTodo {
     public FaqTodo() {
     }
 
-    public FaqTodo(String title, String description, String createdDate, String createdTime) {
-        this.title = title;
-        this.description = description;
-        this.createdDate = createdDate;
-        this.createdTime = createdTime;
-    }
-
     public FaqTodo(String title, String description, String createdDate, String createdTime, String imagesUrl, String videoUrl) {
         this.title = title;
         this.description = description;

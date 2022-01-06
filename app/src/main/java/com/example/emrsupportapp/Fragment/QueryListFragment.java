@@ -1,10 +1,8 @@
 package com.example.emrsupportapp.Fragment;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -12,13 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.emrsupportapp.Adapter.QueryListAdapter;
+import com.example.emrsupportapp.Fragment.FaqModule.FaqList_Fragment;
+import com.example.emrsupportapp.Fragment.TrainingModule.TrainingList_Fragment;
 import com.example.emrsupportapp.R;
 import com.example.emrsupportapp.interfaces.RecyclerviewOnClickListener;
 
@@ -72,7 +70,7 @@ public class QueryListFragment extends Fragment implements RecyclerviewOnClickLi
                 Toast.makeText(getActivity(), "Training Module", Toast.LENGTH_SHORT).show();
                 trainingFragment = new Training_Fragment();
                 manager = getActivity().getSupportFragmentManager();
-                manager.beginTransaction().replace(R.id.container, new Training_Fragment())
+                manager.beginTransaction().replace(R.id.container, new TrainingList_Fragment())
                         .addToBackStack(null)
                         .commit();
                 break;

@@ -1,13 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
-    tools:context=".Fragment.FaqModule.FaqList_Fragment">
+    tools:context=".Fragment.TrainingModule.TrainingList_Fragment">
 
     <EditText
-        android:id="@+id/etSearch"
+        android:id="@+id/etSearchTraining"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginLeft="20dp"
@@ -27,16 +28,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayoutDateDetails"
+        android:id="@+id/linearLayoutDateDetailsTraining"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/etSearch">
+        app:layout_constraintTop_toBottomOf="@+id/etSearchTraining">
 
         <TextView
-            android:id="@+id/txtFromDate"
+            android:id="@+id/txtFromDateTraining"
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:background="@drawable/edittext_background"
@@ -49,7 +50,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/txtToDate"
+            android:id="@+id/txtToDateTraining"
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
@@ -63,7 +64,7 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/btnGo"
+            android:id="@+id/btnGoTraining"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginLeft="30dp"
@@ -74,7 +75,7 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/btnReset"
+            android:id="@+id/btnResetTraining"
             android:layout_width="220dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
@@ -85,7 +86,7 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addFloatingBtn"
+        android:id="@+id/addFloatingBtnTraining"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_margin="40dp"
@@ -96,7 +97,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewFaqList"
+        android:id="@+id/recyclerViewTraining"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -104,6 +105,6 @@
         android:paddingBottom="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutDateDetails" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutDateDetailsTraining" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

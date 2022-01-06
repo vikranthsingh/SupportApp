@@ -14,7 +14,6 @@ import android.widget.VideoView;
 import java.net.URL;
 
 public class VideoActivity extends AppCompatActivity {
-    private static final int REQUEST_CAMERA_PERMISSION_VIDEO = 2;
     public VideoView videoView;
 
     @Override
@@ -22,6 +21,7 @@ public class VideoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
         videoView = findViewById(R.id.videoView);
+
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             Uri uri = Uri.parse(bundle.getString("uri"));

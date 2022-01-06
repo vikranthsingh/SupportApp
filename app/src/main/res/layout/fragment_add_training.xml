@@ -1,25 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
-    tools:context=".Fragment.FaqModule.AddFaqFragment">
+    tools:context=".Fragment.TrainingModule.AddTraining_Fragment">
+
 
     <TextView
-        android:id="@+id/txtFaqTitle"
+        android:id="@+id/txtTrainingTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="80dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="Faq Title"
+        android:text="Training Title"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/etFaqTitle"
+        android:id="@+id/etTrainingTitle"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginLeft="40dp"
@@ -33,22 +35,22 @@
         android:isScrollContainer="true"
         android:padding="10dp"
         android:scrollbars="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/txtFaqTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTrainingTitle" />
 
     <TextView
-        android:id="@+id/txtFaqDescription"
+        android:id="@+id/txtTrainingDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="40dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="Faq Description"
+        android:text="Training Description"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etFaqTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/etTrainingTitle" />
 
     <EditText
-        android:id="@+id/etFaqDescription"
+        android:id="@+id/etTrainingDescription"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginLeft="40dp"
@@ -62,10 +64,10 @@
         android:isScrollContainer="true"
         android:padding="10dp"
         android:scrollbars="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/txtFaqDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTrainingDescription" />
 
     <ImageView
-        android:id="@+id/ivImageCapture"
+        android:id="@+id/ivImageCaptureTraining"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginLeft="40dp"
@@ -76,10 +78,10 @@
         android:scaleType="fitXY"
         android:src="@drawable/ic_image"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etFaqDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/etTrainingDescription" />
 
     <ImageView
-        android:id="@+id/ivVideoCapture"
+        android:id="@+id/ivVideoCaptureTraining"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginLeft="20dp"
@@ -87,11 +89,11 @@
         android:background="@drawable/custom_image_background"
         android:clickable="true"
         android:src="@drawable/ic_video"
-        app:layout_constraintStart_toEndOf="@+id/ivImageCapture"
-        app:layout_constraintTop_toBottomOf="@+id/etFaqDescription" />
+        app:layout_constraintStart_toEndOf="@+id/ivImageCaptureTraining"
+        app:layout_constraintTop_toBottomOf="@+id/etTrainingDescription" />
 
     <Button
-        android:id="@+id/btnSubmit"
+        android:id="@+id/btnSubmitTraining"
         android:layout_width="550dp"
         android:layout_height="80dp"
         android:layout_marginTop="300dp"
@@ -102,5 +104,6 @@
         android:text="Submit"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etFaqDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/etTrainingDescription" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

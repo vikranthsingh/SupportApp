@@ -1,4 +1,4 @@
-package com.example.emrsupportapp.Fragment;
+package com.example.emrsupportapp.Fragment.FaqModule;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -77,12 +77,12 @@ public class AddFaqFragment extends Fragment {
     private static final String TAG = "TAG";
 
     Bitmap bitmap;
-    String currentPhotoPath;
     Uri imageUri;
     Uri videoUri;
     String filename = "imageFile";
     String directoryName = "EyeSmartSupportApp";
-    File photoFile;
+    String selectedVideoPath;
+    String selectedImagePath;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,6 +92,7 @@ public class AddFaqFragment extends Fragment {
         btnSubmit = view.findViewById(R.id.btnSubmit);
         etFaqTitle = view.findViewById(R.id.etFaqTitle);
         etFaqDescription = view.findViewById(R.id.etFaqDescription);
+
         etFaqTitle.addTextChangedListener(SubmitTextWatcher);
         etFaqDescription.addTextChangedListener(SubmitTextWatcher);
 
@@ -118,11 +119,12 @@ public class AddFaqFragment extends Fragment {
                 String desc = etFaqDescription.getText().toString();
                 String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                 String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
-                FaqTodo todo = new FaqTodo(title, desc, currentDate, currentTime);
+                FaqTodo todo = new FaqTodo(title, desc, currentDate, currentTime, selectedImagePath, selectedVideoPath);
                 AsyncTaskTodo asyncTaskTodo = new AsyncTaskTodo();
                 asyncTaskTodo.execute(todo);
                 Log.i(TAG, "onClick: " + todo.toString());
                 Toast.makeText(getActivity(), "Successfully Saved", Toast.LENGTH_SHORT).show();
+                getFragmentManager().popBackStack();
             }
         });
         return view;
@@ -174,14 +176,14 @@ public class AddFaqFragment extends Fragment {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String title = etFaqTitle.getText().toString().trim();
-            String desc = etFaqDescription.getText().toString().trim();
-            btnSubmit.setEnabled(!title.isEmpty() && !desc.isEmpty());
+
         }
 
         @Override
         public void afterTextChanged(Editable s) {
-
+            String title = etFaqTitle.getText().toString().trim();
+            String desc = etFaqDescription.getText().toString().trim();
+            btnSubmit.setEnabled(!title.isEmpty() && !desc.isEmpty());
         }
     };
 
@@ -311,47 +313,40 @@ public class AddFaqFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQUEST_IMAGE_CAPTURE_PERMISSION:
-                if (resultCode == RESULT_OK) {
-                    /*Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath);
-                    ivImageCapture.setImageBitmap(bitmap);*/
+                if (resultCode == RESULT_OK && data!= null) {
                     bitmap = (Bitmap) data.getExtras().get("data");
                     saveImageToGallery(bitmap);
                     ivImageCapture.setImageBitmap(bitmap);
-                    imageUri = getImageUri(getActivity(), bitmap);
-                    /*Uri tempUri = getImageUri(getActivity(), bitmap);
-                    File finalFile = new File(getRealPathFromUri(tempUri));*/
+                    selectedImagePath = String.valueOf(getImageUri(getActivity(), bitmap));
                     Log.i(TAG, "RESULT_OK");
                 }
                 break;
             case REQUEST_VIDEO_CAPTURE_PERMISSION:
                 if (resultCode == RESULT_OK && data != null) {
                     videoUri = data.getData();
+                    selectedVideoPath = getRealPathFromUri(videoUri);
                 }
                 break;
             case REQUEST_IMAGE_PICKER_PERMISSION:
                 if (resultCode == RESULT_OK) {
                     imageUri = data.getData();
-                    ivImageCapture.setImageURI(imageUri);
-                    Log.i(TAG, "RESULT_OK");
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
+                        selectedImagePath = String.valueOf(getImageUri(getActivity(), bitmap));
+                        ivImageCapture.setImageBitmap(bitmap);
+                        Log.i(TAG, "RESULT_OK");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case REQUEST_VIDEO_PICKER_PERMISSION:
+                if (resultCode == RESULT_OK && data != null) {
+                    videoUri = data.getData();
+                    selectedVideoPath = getRealPathFromUri(videoUri);
                 }
                 break;
         }
-        /*if (requestCode == REQUEST_IMAGE_CAPTURE_PERMISSION) {
-            switch (resultCode) {
-                case RESULT_OK:
-                    Log.i(TAG, "RESULT_OK");
-                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                    ivImageCapture.setImageBitmap(bitmap);
-                    break;
-                case RESULT_CANCELED:
-                    Log.i(TAG, "RESULT_CANCELED");
-                    break;
-            }
-        } else if (requestCode == REQUEST_CAMERA_PERMISSION_VIDEO && resultCode == RESULT_OK) {
-            Uri uri = data.getData();
-            videoActivity.videoView.setVideoURI(uri);
-            videoActivity.videoView.start();
-        }*/
     }
 
     public Uri getImageUri(Context context, Bitmap inImage) {
@@ -362,17 +357,17 @@ public class AddFaqFragment extends Fragment {
     }
 
     public String getRealPathFromUri(Uri uri) {
-        String path = "";
-        if (getActivity().getContentResolver() != null) {
-            Cursor cursor = getContext().getContentResolver().query(uri, null, null, null, null);
-            if (cursor != null) {
-                cursor.moveToFirst();
-                int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-                path = cursor.getString(idx);
-                cursor.close();
-            }
+        if (uri == null) {
+            return null;
         }
-        return path;
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getActivity().getContentResolver().query(uri, projection, null, null, null);
+        if (cursor != null) {
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        }
+        return uri.getPath();
     }
 
     private void selectImage() {
@@ -416,8 +411,8 @@ public class AddFaqFragment extends Fragment {
                     startActivityForResult(intent, REQUEST_VIDEO_CAPTURE_PERMISSION);
                 } else if (options[which].equals("Choose from Gallery")) {
                     //To pick video from gallery
-                    Intent imagePicker = new Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(imagePicker, REQUEST_VIDEO_PICKER_PERMISSION);
+                    Intent videoPicker = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(videoPicker, REQUEST_VIDEO_PICKER_PERMISSION);
                 } else if (options[which].equals("View")) {
                     Intent intent = new Intent(getActivity(), VideoActivity.class);
                     intent.putExtra("uri", videoUri.toString());
