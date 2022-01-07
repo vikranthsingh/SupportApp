@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    tools:context=".Fragment.TrainingModule.TrainingInfo_Fragment">
+
+    <TextView
+        android:id="@+id/titleInfoTraining"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Title"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titleInfoTextTraining"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/textview_background"
+        android:fontFamily="@font/roboto_regular"
+        android:padding="10dp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleInfoTraining" />
+
+    <TextView
+        android:id="@+id/titleDescInfoTraining"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Title Description"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleInfoTextTraining" />
+
+    <TextView
+        android:id="@+id/titleDescInfoTextTraining"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/textview_background"
+        android:fontFamily="@font/roboto_regular"
+        android:padding="10dp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleDescInfoTraining" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="30dp"
+        android:orientation="horizontal"
+        android:scrollbars="vertical"
+        android:weightSum="10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleDescInfoTextTraining">
+
+        <ImageView
+            android:id="@+id/ivImageInfoTraining"
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_weight="2"
+            android:background="@drawable/custom_image_background"
+            android:padding="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_image"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleDescFaqInfoText" />
+
+        <ImageView
+            android:id="@+id/ivVideoInfoTraining"
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="2"
+            android:background="@drawable/custom_image_background"
+            android:padding="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_video"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/ivImageInfo"
+            app:layout_constraintTop_toBottomOf="@+id/titleDescFaqInfoText" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
