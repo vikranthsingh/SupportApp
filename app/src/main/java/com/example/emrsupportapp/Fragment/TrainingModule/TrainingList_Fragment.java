@@ -100,7 +100,7 @@ public class TrainingList_Fragment extends Fragment implements TrainingOnClickLi
             public void onClick(View v) {
                 String fromDateTraining = txtFromDateTraining.getText().toString();
                 String toDateTraining = txtToDateTraining.getText().toString();
-                Toast.makeText(getActivity(), "From Date : "+fromDateTraining + "\nTo Date : " + toDateTraining, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "From Date : " + fromDateTraining + "\nTo Date : " + toDateTraining, Toast.LENGTH_SHORT).show();
                 getDateListTraining(fromDateTraining, toDateTraining);
 
                 if (txtFromDateTraining.getText().toString().isEmpty()) {
@@ -127,7 +127,7 @@ public class TrainingList_Fragment extends Fragment implements TrainingOnClickLi
                 etSearchTraining.setText("");
             }
         });
-        adapter = new TrainingListAdapter(getActivity(), titleList);
+        adapter = new TrainingListAdapter(getActivity(), titleList, this);
         recyclerViewTraining.setAdapter(adapter);
         recyclerViewTraining.setHasFixedSize(true);
         recyclerViewTraining.setLayoutManager(new LinearLayoutManager(getContext()));

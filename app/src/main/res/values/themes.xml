@@ -17,4 +17,13 @@
     <style name="SplashScreen" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splashscreen</item>
     </style>
+
+    <style name="Theme.EMRSupportApp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.EMRSupportApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.EMRSupportApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

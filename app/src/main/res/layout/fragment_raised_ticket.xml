@@ -1,15 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.RaisedTicket_Fragment">
+    android:background="@color/backgroundColor"
+    tools:context=".Fragment.RaisedTickets.RaisedTicket_Fragment">
 
+    <LinearLayout
+        android:id="@+id/llStatus"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:weightSum="10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/txtAll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@drawable/custom_textview_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:text="All"
+            android:textSize="23sp" />
+
+        <TextView
+            android:id="@+id/txtNew"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="2"
+            android:background="@drawable/custom_textview_bg_unselected"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:text="New"
+            android:textSize="23sp" />
+
+        <TextView
+            android:id="@+id/txtInProgress"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="2"
+            android:background="@drawable/custom_textview_bg_unselected"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:text="In-Progress"
+            android:textSize="23sp" />
+
+        <TextView
+            android:id="@+id/txtResolved"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="2"
+            android:background="@drawable/custom_textview_bg_unselected"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:text="Resolved"
+            android:textSize="23sp" />
+
+        <TextView
+            android:id="@+id/txtRejected"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="2"
+            android:background="@drawable/custom_textview_bg_unselected"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:text="Rejected"
+            android:textSize="23sp" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/etSearch"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/edittext_background"
+        android:drawableStart="@drawable/ic_search"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="center"
+        android:hint="Search"
+        android:inputType="text"
+        android:paddingStart="25dp"
+        android:textColorHint="#adb5bd"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llStatus" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutDateDetails"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Raised Ticket" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/etSearch">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/txtFromDate"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/edittext_background"
+            android:drawableEnd="@drawable/ic_calendar"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center_vertical"
+            android:hint="From Date"
+            android:paddingLeft="20dp"
+            android:paddingEnd="15dp"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txtToDate"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/edittext_background"
+            android:drawableEnd="@drawable/ic_calendar"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center_vertical"
+            android:hint="To Date"
+            android:paddingLeft="20dp"
+            android:paddingEnd="15dp"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btnGo"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/custom_circle_button"
+            android:clickable="true"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Go"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btnReset"
+            android:layout_width="220dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/button_background"
+            android:fontFamily="@font/roboto_medium"
+            android:text="RESET"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addFloatingBtn"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="40dp"
+        android:backgroundTint="#00b4d8"
+        android:src="@drawable/ic_add"
+        app:fabCustomSize="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewTicketList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:clipToPadding="false"
+        android:paddingBottom="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutDateDetails" />
+</androidx.constraintlayout.widget.ConstraintLayout>

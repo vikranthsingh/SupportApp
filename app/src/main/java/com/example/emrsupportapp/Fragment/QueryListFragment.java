@@ -1,5 +1,6 @@
 package com.example.emrsupportapp.Fragment;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.emrsupportapp.Adapter.QueryListAdapter;
 import com.example.emrsupportapp.Fragment.FaqModule.FaqList_Fragment;
+import com.example.emrsupportapp.Fragment.RaisedTickets.RaisedTicket_Fragment;
 import com.example.emrsupportapp.Fragment.TrainingModule.TrainingList_Fragment;
 import com.example.emrsupportapp.R;
 import com.example.emrsupportapp.interfaces.RecyclerviewOnClickListener;
@@ -26,7 +28,7 @@ public class QueryListFragment extends Fragment implements RecyclerviewOnClickLi
     String[] queryList = {"Frequent asked Questions", "Training Module", "Raised Tickets List"};
     int[] queryImages = {R.drawable.questions, R.drawable.question, R.drawable.tickets};
     FaqList_Fragment fragment;
-    Training_Fragment trainingFragment;
+    TrainingList_Fragment trainingFragment;
     FragmentManager manager;
     RaisedTicket_Fragment raisedTicketFragment;
 
@@ -68,7 +70,7 @@ public class QueryListFragment extends Fragment implements RecyclerviewOnClickLi
                 break;
             case 1:
                 Toast.makeText(getActivity(), "Training Module", Toast.LENGTH_SHORT).show();
-                trainingFragment = new Training_Fragment();
+                trainingFragment = new TrainingList_Fragment();
                 manager = getActivity().getSupportFragmentManager();
                 manager.beginTransaction().replace(R.id.container, new TrainingList_Fragment())
                         .addToBackStack(null)

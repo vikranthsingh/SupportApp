@@ -22,9 +22,10 @@ public class TrainingListAdapter extends RecyclerView.Adapter<TrainingListAdapte
     List<TrainingTodo> titleList;
     TrainingOnClickListener trainingOnClickListener;
 
-    public TrainingListAdapter(Context context, List<TrainingTodo> titleList) {
+    public TrainingListAdapter(Context context, List<TrainingTodo> titleList, TrainingOnClickListener trainingOnClickListener) {
         this.context = context;
         this.titleList = titleList;
+        this.trainingOnClickListener = trainingOnClickListener;
     }
 
     @NonNull
@@ -64,6 +65,12 @@ public class TrainingListAdapter extends RecyclerView.Adapter<TrainingListAdapte
             super(itemView);
             ivTraining = itemView.findViewById(R.id.ivTraining);
             txtViewTrainingTitle = itemView.findViewById(R.id.txtViewTrainingTitle);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    trainingOnClickListener.trainingOnClickListener(getAdapterPosition(), titleList.get(getAdapterPosition()));
+                }
+            });
         }
     }
 }
