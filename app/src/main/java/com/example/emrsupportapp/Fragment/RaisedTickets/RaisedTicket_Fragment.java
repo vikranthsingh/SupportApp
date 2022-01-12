@@ -23,10 +23,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.emrsupportapp.Adapter.TicketListAdapter;
+import com.example.emrsupportapp.Fragment.FaqModule.FaqInfo_Fragment;
 import com.example.emrsupportapp.R;
 import com.example.emrsupportapp.activities.DatabaseHelper;
 import com.example.emrsupportapp.activities.FaqTodo;
 import com.example.emrsupportapp.activities.TicketTodo;
+import com.example.emrsupportapp.interfaces.TicketOnClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class RaisedTicket_Fragment extends Fragment implements View.OnClickListener {
+public class RaisedTicket_Fragment extends Fragment implements View.OnClickListener, TicketOnClickListener {
     FloatingActionButton addFloatingBtn;
     TextView txtAll, txtNew, txtInProgress, txtResolved, txtRejected;
     TextView txtFromDate, txtToDate;
@@ -136,11 +138,11 @@ public class RaisedTicket_Fragment extends Fragment implements View.OnClickListe
                 etSearch.setText("");
             }
         });
-        adapter = new TicketListAdapter(getActivity(), titleList);
+        adapter = new TicketListAdapter(getActivity(), titleList, this);
         recyclerViewTicketList.setAdapter(adapter);
         recyclerViewTicketList.setHasFixedSize(true);
         recyclerViewTicketList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        //getAllTitleList();
+        getAllTitleList();
         return view;
     }
 
@@ -285,5 +287,16 @@ public class RaisedTicket_Fragment extends Fragment implements View.OnClickListe
             }
         });
         thread.start();
+    }
+
+    @Override
+    public void onClickListenerTicket(int position, TicketTodo ticketTodo) {
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction().replace(R.id.container, new TicketInfo_Fragment(ticketTodo)).addToBackStack(null); //Make sure before you pass this it should be initialized
+        transaction.commit();
+    }
+
+    @Override
+    public void onLongClickListenerTicket(int position, TicketTodo ticketTodo) {
     }
 }

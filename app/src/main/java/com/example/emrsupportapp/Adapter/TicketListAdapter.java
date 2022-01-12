@@ -13,16 +13,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.emrsupportapp.R;
 import com.example.emrsupportapp.activities.FaqTodo;
 import com.example.emrsupportapp.activities.TicketTodo;
+import com.example.emrsupportapp.interfaces.TicketOnClickListener;
 
 import java.util.List;
 
 public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.TicketViewHolder> {
     Context context;
     List<TicketTodo> titleList;
+    TicketOnClickListener ticketOnClickListener;
 
-    public TicketListAdapter(Context context, List<TicketTodo> titleList) {
+    public TicketListAdapter(Context context, List<TicketTodo> titleList, TicketOnClickListener ticketOnClickListener) {
         this.context = context;
         this.titleList = titleList;
+        this.ticketOnClickListener = ticketOnClickListener;
     }
 
     @NonNull
@@ -30,7 +33,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 
     public TicketViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.activity_ticket_list, parent, false);
+        View view = inflater.inflate(R.layout.custom_cardview_ticketlist, parent, false);
         return new TicketViewHolder(view);
     }
 
@@ -63,6 +66,19 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
             super(itemView);
             txtViewTicketTitle = itemView.findViewById(R.id.txtViewTicketTitle);
             ivTicket = itemView.findViewById(R.id.ivTicket);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ticketOnClickListener.onClickListenerTicket(getAdapterPosition(), titleList.get(getAdapterPosition()));
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    ticketOnClickListener.onLongClickListenerTicket(getAdapterPosition(), titleList.get(getItemCount()));
+                    return true;
+                }
+            });
         }
     }
 }

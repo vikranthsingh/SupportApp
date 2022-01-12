@@ -105,6 +105,18 @@ public class AddTicket_Fragment extends Fragment {
                 //getFragmentManager().popBackStack();
             }
         });
+        ivImageCaptureTicket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                askForCameraPermissionImage();
+            }
+        });
+        ivVideoCaptureTicket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                askForCameraPermissionVideo();
+            }
+        });
         return view;
     }
 
