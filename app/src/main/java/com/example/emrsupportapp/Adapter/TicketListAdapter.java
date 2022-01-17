@@ -75,7 +75,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    ticketOnClickListener.onLongClickListenerTicket(getAdapterPosition(), titleList.get(getItemCount()));
+                    ticketOnClickListener.onLongClickListenerTicket(getAdapterPosition());
                     return true;
                 }
             });

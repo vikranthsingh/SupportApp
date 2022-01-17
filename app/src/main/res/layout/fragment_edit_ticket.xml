@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    tools:context=".Fragment.RaisedTickets.EditTicket_Fragment">
+
+    <TextView
+        android:id="@+id/txtTicketTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Ticket Title"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etTicketTitle"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/edittext_background"
+        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 "
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="top"
+        android:inputType="textCapSentences"
+        android:isScrollContainer="true"
+        android:padding="10dp"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/txtTicketTitle" />
+
+    <TextView
+        android:id="@+id/txtTicketDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Ticket Description"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etTicketTitle" />
+
+    <EditText
+        android:id="@+id/etTicketDescription"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/edittext_background"
+        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 "
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="top"
+        android:inputType="textCapSentences"
+        android:isScrollContainer="true"
+        android:padding="10dp"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/txtTicketDescription" />
+
+    <TextView
+        android:id="@+id/txtTicketSolution"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Ticket Solution"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etTicketDescription" />
+
+    <EditText
+        android:id="@+id/etTicketSolution"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/edittext_background"
+        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 "
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="top"
+        android:inputType="textCapSentences"
+        android:isScrollContainer="true"
+        android:padding="10dp"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/txtTicketSolution" />
+
+    <ImageView
+        android:id="@+id/ivImageCaptureTicket"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/custom_image_background"
+        android:clickable="true"
+        android:padding="5dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etTicketSolution" />
+
+    <ImageView
+        android:id="@+id/ivVideoCaptureTicket"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/custom_image_background"
+        android:clickable="true"
+        android:src="@drawable/ic_video"
+        app:layout_constraintStart_toEndOf="@+id/ivImageCaptureTicket"
+        app:layout_constraintTop_toBottomOf="@+id/etTicketSolution" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:orientation="horizontal"
+        android:weightSum="4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivImageCaptureTicket">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="#fff"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:text="Ticket Status"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="2"
+            android:background="@color/white">
+
+            <Spinner
+                android:id="@+id/ticketStatus"
+                android:paddingStart="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:entries="@array/ticketStatus" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btnSubmitTicket"
+        android:layout_width="550dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/button_background"
+        android:enabled="false"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Submit"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etTicketSolution" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,4 +6,11 @@
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="title_activity_raised_ticket">RaisedTicketActivity</string>
+
+    <string-array name="ticketStatus">
+        <item>New</item>
+        <item>In-Progress</item>
+        <item>Resolved</item>
+        <item>Rejected</item>
+    </string-array>
 </resources>
