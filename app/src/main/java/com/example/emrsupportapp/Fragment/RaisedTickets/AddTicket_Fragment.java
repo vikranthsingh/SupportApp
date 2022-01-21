@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -139,15 +140,33 @@ public class AddTicket_Fragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (ticketTodo.getUid() != 0) {
+        if (ticketTodo != null) {
             initEdit();
         }
     }
 
     private void initEdit() {
+        String image = ticketTodo.getImagesUrl();
+        String video = ticketTodo.getVideoUrl();
+        String solution = etTicketSolution.getText().toString();
         llTicketStatus.setVisibility(View.VISIBLE);
         etTicketSolution.setVisibility(View.VISIBLE);
         txtTicketSolution.setVisibility(View.VISIBLE);
+        etTicketTitle.setText(ticketTodo.getTitle());
+        etTicketTitle.setEnabled(false);
+        etTicketDescription.setText(ticketTodo.getDescription());
+        etTicketDescription.setEnabled(false);
+
+        if (image != null) {
+            ivImageCaptureTicket.setImageURI(Uri.parse(image));
+        }
+        if (video != null) {
+            ivVideoCaptureTicket.setImageBitmap(createVideoThumbnail(video));
+        }
+    }
+
+    public Bitmap createVideoThumbnail(String path) {
+        return ThumbnailUtils.createVideoThumbnail(path, MediaStore.Video.Thumbnails.MICRO_KIND);
     }
 
     public class AsyncTaskTodo extends AsyncTask<TicketTodo, Void, Void> {

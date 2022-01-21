@@ -1,7 +1,6 @@
 package com.example.emrsupportapp.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,10 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.emrsupportapp.Fragment.RaisedTickets.AddTicket_Fragment;
-import com.example.emrsupportapp.Fragment.RaisedTickets.EditTicket_Fragment;
 import com.example.emrsupportapp.R;
-import com.example.emrsupportapp.activities.FaqTodo;
 import com.example.emrsupportapp.activities.TicketTodo;
 import com.example.emrsupportapp.interfaces.TicketOnClickListener;
 
@@ -90,7 +86,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
                             Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show();
-                            mListener.onClickItem();
+                            mListener.onClickItem(getAdapterPosition(), titleList.get(getAdapterPosition()));
                             return true;
                         }
                     });
@@ -126,6 +122,6 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
     }
 
     public interface RecyclerOnClickListener {
-        void onClickItem();
+        void onClickItem(int position, TicketTodo ticketTodo);
     }
 }

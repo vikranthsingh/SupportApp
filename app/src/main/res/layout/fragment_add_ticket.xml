@@ -120,6 +120,8 @@
         android:layout_marginTop="40dp"
         android:background="@drawable/custom_image_background"
         android:clickable="true"
+        android:padding="5dp"
+        android:scaleType="fitXY"
         android:src="@drawable/ic_video"
         app:layout_constraintStart_toEndOf="@+id/ivImageCaptureTicket"
         app:layout_constraintTop_toBottomOf="@+id/etTicketSolution" />
@@ -169,7 +171,7 @@
         android:id="@+id/btnSubmitTicket"
         android:layout_width="550dp"
         android:layout_height="80dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         android:layout_marginRight="40dp"
         android:background="@drawable/button_background"
         android:enabled="false"

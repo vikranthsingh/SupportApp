@@ -300,9 +300,9 @@ public class RaisedTicket_Fragment extends Fragment implements View.OnClickListe
     }
 
     @Override
-    public void onClickItem() {
+    public void onClickItem(int position, TicketTodo ticketTodo) {
         FragmentManager manager = getActivity().getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction().replace(R.id.container, new AddTicket_Fragment(null)).addToBackStack(null); //Make sure before you pass this it should be initialized
+        FragmentTransaction transaction = manager.beginTransaction().replace(R.id.container, new AddTicket_Fragment(ticketTodo)).addToBackStack(null); //Make sure before you pass this it should be initialized
         transaction.commit();
     }
     /*@Override
