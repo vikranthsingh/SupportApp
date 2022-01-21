@@ -43,6 +43,7 @@ import com.example.emrsupportapp.R;
 import com.example.emrsupportapp.VideoActivity;
 import com.example.emrsupportapp.activities.DatabaseHelper;
 import com.example.emrsupportapp.activities.FaqTodo;
+import com.example.emrsupportapp.activities.TicketTodo;
 import com.example.emrsupportapp.activities.TrainingTodo;
 
 import java.io.ByteArrayOutputStream;
@@ -58,6 +59,7 @@ import java.util.Objects;
 
 
 public class AddTraining_Fragment extends Fragment {
+
     //Image
     private static final int REQUEST_IMAGE_CAPTURE_PERMISSION = 1;
     private static final int REQUEST_IMAGE_PICKER_PERMISSION = 2;

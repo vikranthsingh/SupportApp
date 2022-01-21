@@ -35,6 +35,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.emrsupportapp.Fragment.FaqModule.AddFaqFragment;
@@ -58,6 +60,12 @@ import java.util.Objects;
 
 
 public class AddTicket_Fragment extends Fragment {
+    private final TicketTodo ticketTodo;
+
+    public AddTicket_Fragment(TicketTodo ticketTodo) {
+        this.ticketTodo = ticketTodo;
+    }
+
     private static final String TAG = "TAG";
     EditText etTicketTitle, etTicketDescription;
     ImageView ivImageCaptureTicket, ivVideoCaptureTicket;
@@ -72,10 +80,13 @@ public class AddTicket_Fragment extends Fragment {
     //Image
     private static final int REQUEST_IMAGE_CAPTURE_PERMISSION = 1;
     private static final int REQUEST_IMAGE_PICKER_PERMISSION = 2;
-
     //Video
     private static final int REQUEST_VIDEO_CAPTURE_PERMISSION = 3;
     private static final int REQUEST_VIDEO_PICKER_PERMISSION = 4;
+    //Edit
+    LinearLayout llTicketStatus;
+    EditText etTicketSolution;
+    TextView txtTicketSolution;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,6 +100,11 @@ public class AddTicket_Fragment extends Fragment {
         ivImageCaptureTicket = view.findViewById(R.id.ivImageCaptureTicket);
         ivVideoCaptureTicket = view.findViewById(R.id.ivVideoCaptureTicket);
         btnSubmitTicket = view.findViewById(R.id.btnSubmitTicket);
+        //Edit
+        llTicketStatus = view.findViewById(R.id.llTicketStatus);
+        etTicketSolution = view.findViewById(R.id.etTicketSolution);
+        txtTicketSolution = view.findViewById(R.id.txtTicketSolution);
+
         btnSubmitTicket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,7 +118,7 @@ public class AddTicket_Fragment extends Fragment {
                 asyncTaskTodo.execute(todo);
                 Log.i(TAG, "onClick: " + todo.toString());
                 Toast.makeText(getActivity(), "Successfully Saved", Toast.LENGTH_SHORT).show();
-                //getFragmentManager().popBackStack();
+                getFragmentManager().popBackStack();
             }
         });
         ivImageCaptureTicket.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +134,20 @@ public class AddTicket_Fragment extends Fragment {
             }
         });
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (ticketTodo.getUid() != 0) {
+            initEdit();
+        }
+    }
+
+    private void initEdit() {
+        llTicketStatus.setVisibility(View.VISIBLE);
+        etTicketSolution.setVisibility(View.VISIBLE);
+        txtTicketSolution.setVisibility(View.VISIBLE);
     }
 
     public class AsyncTaskTodo extends AsyncTask<TicketTodo, Void, Void> {

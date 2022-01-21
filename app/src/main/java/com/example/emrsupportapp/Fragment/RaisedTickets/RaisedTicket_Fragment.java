@@ -1,8 +1,10 @@
 package com.example.emrsupportapp.Fragment.RaisedTickets;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -14,6 +16,7 @@ import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -36,7 +39,7 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class RaisedTicket_Fragment extends Fragment implements View.OnClickListener, TicketOnClickListener {
+public class RaisedTicket_Fragment extends Fragment implements View.OnClickListener, TicketOnClickListener, TicketListAdapter.RecyclerOnClickListener {
     FloatingActionButton addFloatingBtn;
     TextView txtAll, txtNew, txtInProgress, txtResolved, txtRejected;
     TextView txtFromDate, txtToDate;
@@ -87,7 +90,7 @@ public class RaisedTicket_Fragment extends Fragment implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 FragmentManager manager = getActivity().getSupportFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction().addToBackStack(null).replace(R.id.container, new AddTicket_Fragment());
+                FragmentTransaction transaction = manager.beginTransaction().addToBackStack(null).replace(R.id.container, new AddTicket_Fragment(null));
                 transaction.commit();
             }
         });
@@ -138,7 +141,7 @@ public class RaisedTicket_Fragment extends Fragment implements View.OnClickListe
                 etSearch.setText("");
             }
         });
-        adapter = new TicketListAdapter(getActivity(), titleList, this);
+        adapter = new TicketListAdapter(getActivity(), titleList, this, this);
         recyclerViewTicketList.setAdapter(adapter);
         recyclerViewTicketList.setHasFixedSize(true);
         recyclerViewTicketList.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -297,10 +300,16 @@ public class RaisedTicket_Fragment extends Fragment implements View.OnClickListe
     }
 
     @Override
-    public void onLongClickListenerTicket(int position) {
-        Toast.makeText(getActivity(), "OnLongClick", Toast.LENGTH_SHORT).show();
+    public void onClickItem() {
         FragmentManager manager = getActivity().getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction().replace(R.id.container, new EditTicket_Fragment()).addToBackStack(null); //Make sure before you pass this it should be initialized
+        FragmentTransaction transaction = manager.beginTransaction().replace(R.id.container, new AddTicket_Fragment(null)).addToBackStack(null); //Make sure before you pass this it should be initialized
         transaction.commit();
     }
+    /*@Override
+    public void onLongClickListenerTicket(int position, TicketTodo ticketTodo) {
+        Toast.makeText(getActivity(), "OnLongClick", Toast.LENGTH_SHORT).show();
+        *//*FragmentManager manager = getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction().replace(R.id.container, new AddTicket_Fragment()).addToBackStack(null); //Make sure before you pass this it should be initialized
+        transaction.commit();*//*
+    }*/
 }
