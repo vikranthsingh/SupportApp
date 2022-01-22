@@ -37,6 +37,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +56,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -88,6 +90,8 @@ public class AddTicket_Fragment extends Fragment {
     LinearLayout llTicketStatus;
     EditText etTicketSolution;
     TextView txtTicketSolution;
+    Spinner ticketStatusSpinner;
+    TicketTodo todo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -105,21 +109,33 @@ public class AddTicket_Fragment extends Fragment {
         llTicketStatus = view.findViewById(R.id.llTicketStatus);
         etTicketSolution = view.findViewById(R.id.etTicketSolution);
         txtTicketSolution = view.findViewById(R.id.txtTicketSolution);
+        ticketStatusSpinner = view.findViewById(R.id.ticketStatusSpinner);
 
         btnSubmitTicket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String title = etTicketTitle.getText().toString();
-                String desc = etTicketDescription.getText().toString();
-                String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-                String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
-                TicketTodo todo = new TicketTodo(title, desc, currentDate, currentTime, selectedImagePath, selectedVideoPath);
-
-                AsyncTaskTodo asyncTaskTodo = new AsyncTaskTodo();
-                asyncTaskTodo.execute(todo);
-                Log.i(TAG, "onClick: " + todo.toString());
-                Toast.makeText(getActivity(), "Successfully Saved", Toast.LENGTH_SHORT).show();
-                getFragmentManager().popBackStack();
+                if (ticketTodo == null) {
+                    String title = etTicketTitle.getText().toString();
+                    String desc = etTicketDescription.getText().toString();
+                    String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+                    String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+                    todo = new TicketTodo(title, desc, currentDate, currentTime, selectedImagePath, selectedVideoPath, null, null);
+                    AsyncTaskTodo asyncTaskTodo = new AsyncTaskTodo();
+                    asyncTaskTodo.execute(todo);
+                    Log.i(TAG, "onClick: " + todo.toString());
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("Success !!");
+                    builder.setMessage("Data saved successfully...");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            getFragmentManager().popBackStack();
+                        }
+                    });
+                    builder.create().show();
+                } else {
+                    updateATodo();
+                }
             }
         });
         ivImageCaptureTicket.setOnClickListener(new View.OnClickListener() {
@@ -148,7 +164,10 @@ public class AddTicket_Fragment extends Fragment {
     private void initEdit() {
         String image = ticketTodo.getImagesUrl();
         String video = ticketTodo.getVideoUrl();
-        String solution = etTicketSolution.getText().toString();
+        String status = ticketTodo.getTicketStatus();
+        String solution = ticketTodo.getTicketSolution();
+        String[] baths = getResources().getStringArray(R.array.ticketStatus);
+        ticketStatusSpinner.setSelection(Arrays.asList(baths).indexOf(status));
         llTicketStatus.setVisibility(View.VISIBLE);
         etTicketSolution.setVisibility(View.VISIBLE);
         txtTicketSolution.setVisibility(View.VISIBLE);
@@ -156,7 +175,9 @@ public class AddTicket_Fragment extends Fragment {
         etTicketTitle.setEnabled(false);
         etTicketDescription.setText(ticketTodo.getDescription());
         etTicketDescription.setEnabled(false);
-
+        if (solution != null) {
+            etTicketSolution.setText(solution);
+        }
         if (image != null) {
             ivImageCaptureTicket.setImageURI(Uri.parse(image));
         }
@@ -175,6 +196,24 @@ public class AddTicket_Fragment extends Fragment {
             DatabaseHelper.getInstance(getActivity()).todoDao().insertTodoTicket(ticketTodos[0]);
             return null;
         }
+    }
+
+    public void updateATodo() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                todo = DatabaseHelper.getInstance(getActivity()).todoDao().getTodoById(ticketTodo.getUid());
+                String solution = etTicketSolution.getText().toString();
+                String spinner = ticketStatusSpinner.getSelectedItem().toString();
+                ticketTodo.setTicketSolution(solution);
+                ticketTodo.setTicketStatus(spinner);
+                if (todo != null) {
+                    DatabaseHelper.getInstance(getActivity()).todoDao().updateTodo(todo);
+                    Log.i(TAG, "updateATodo: " + todo.toString());
+                }
+            }
+        });
+        thread.start();
     }
 
     private void saveImageToGallery(Bitmap bitmap) {

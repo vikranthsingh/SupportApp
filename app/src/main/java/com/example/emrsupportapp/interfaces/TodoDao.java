@@ -3,6 +3,7 @@ package com.example.emrsupportapp.interfaces;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.emrsupportapp.activities.FaqTodo;
 import com.example.emrsupportapp.activities.TicketTodo;
@@ -39,7 +40,11 @@ public interface TodoDao {
 
     @Query("SELECT * FROM ticket_table WHERE created_date between :fromDate AND :toDate")
     List<TicketTodo> getDatesListTicket(String fromDate, String toDate);
-    /*@Query("SELECT * FROM faq_table WHERE uid LIKE :uid")
-    FaqTodo getTodoById(int uid);*/
+
+    @Query("SELECT * FROM ticket_table WHERE uid LIKE :uid")
+    TicketTodo getTodoById(int uid);
+
+    @Update
+    void updateTodo(TicketTodo todo);
 
 }

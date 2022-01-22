@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 
 import com.example.emrsupportapp.interfaces.TodoDao;
 
-@Database(entities = {FaqTodo.class, TrainingTodo.class, TicketTodo.class}, version = 3)
+@Database(entities = {FaqTodo.class, TrainingTodo.class, TicketTodo.class}, version = 1)
 public abstract class DatabaseHelper extends RoomDatabase {
     public abstract TodoDao todoDao();
     public static volatile DatabaseHelper INSTANCE;

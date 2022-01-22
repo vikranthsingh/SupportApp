@@ -29,16 +29,24 @@ public class TicketTodo {
     @ColumnInfo(name = "videoUrl")
     String videoUrl;
 
+    @ColumnInfo(name = "ticket_solution")
+    String ticketSolution;
+
+    @ColumnInfo(name = "ticket_status")
+    String ticketStatus;
+
     public TicketTodo() {
     }
 
-    public TicketTodo(String title, String description, String createdDate, String createdTime, String imagesUrl, String videoUrl) {
+    public TicketTodo(String title, String description, String createdDate, String createdTime, String imagesUrl, String videoUrl, String ticketSolution, String ticketStatus) {
         this.title = title;
         this.description = description;
         this.createdDate = createdDate;
         this.createdTime = createdTime;
         this.imagesUrl = imagesUrl;
         this.videoUrl = videoUrl;
+        this.ticketSolution = ticketSolution;
+        this.ticketStatus = ticketStatus;
     }
 
     public int getUid() {
@@ -97,16 +105,34 @@ public class TicketTodo {
         this.createdTime = createdTime;
     }
 
+    public String getTicketSolution() {
+        return ticketSolution;
+    }
+
+    public void setTicketSolution(String ticketSolution) {
+        this.ticketSolution = ticketSolution;
+    }
+
+    public String getTicketStatus() {
+        return ticketStatus;
+    }
+
+    public void setTicketStatus(String ticketStatus) {
+        this.ticketStatus = ticketStatus;
+    }
+
     @Override
     public String toString() {
         return "TicketTodo{" +
-                "\nuid=" + uid +
+                "uid=" + uid +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", createdDate='" + createdDate + '\'' +
                 ", createdTime='" + createdTime + '\'' +
                 ", imagesUrl='" + imagesUrl + '\'' +
                 ", videoUrl='" + videoUrl + '\'' +
+                ", ticketSolution='" + ticketSolution + '\'' +
+                ", ticketStatus='" + ticketStatus + '\'' +
                 '}';
     }
 }
