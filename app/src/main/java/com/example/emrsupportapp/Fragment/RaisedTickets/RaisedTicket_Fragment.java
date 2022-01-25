@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.emrsupportapp.Adapter.TicketListAdapter;
 import com.example.emrsupportapp.Fragment.FaqModule.FaqInfo_Fragment;
+import com.example.emrsupportapp.Fragment.FaqModule.FaqList_Fragment;
 import com.example.emrsupportapp.R;
 import com.example.emrsupportapp.activities.DatabaseHelper;
 import com.example.emrsupportapp.activities.FaqTodo;
@@ -303,6 +304,13 @@ public class RaisedTicket_Fragment extends Fragment implements View.OnClickListe
     public void onClickItem(int position, TicketTodo ticketTodo) {
         FragmentManager manager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction().replace(R.id.container, new AddTicket_Fragment(ticketTodo)).addToBackStack(null); //Make sure before you pass this it should be initialized
+        transaction.commit();
+    }
+
+    @Override
+    public void onClickAddToFaq(int position) {
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction().replace(R.id.container, new FaqList_Fragment()).addToBackStack(null); //Make sure before you pass this it should be initialized
         transaction.commit();
     }
     /*@Override

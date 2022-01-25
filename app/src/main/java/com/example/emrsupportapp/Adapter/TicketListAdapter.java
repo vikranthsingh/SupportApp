@@ -94,6 +94,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
                             Toast.makeText(context, "Move Ticket To FAQ", Toast.LENGTH_SHORT).show();
+                            mListener.onClickAddToFaq(getAdapterPosition());
                             return true;
                         }
                     });
@@ -123,5 +124,6 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 
     public interface RecyclerOnClickListener {
         void onClickItem(int position, TicketTodo ticketTodo);
+        void onClickAddToFaq(int position);
     }
 }

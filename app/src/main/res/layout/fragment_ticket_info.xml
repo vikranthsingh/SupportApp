@@ -17,7 +17,7 @@
         android:text="Title"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTicketStatusDesc" />
 
     <TextView
         android:id="@+id/titleTicketInfoText"
@@ -60,6 +60,7 @@
         app:layout_constraintTop_toBottomOf="@+id/titleDescTicketInfo" />
 
     <LinearLayout
+        android:id="@+id/llImageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
@@ -99,6 +100,36 @@
             app:layout_constraintStart_toEndOf="@+id/ivImageInfo"
             app:layout_constraintTop_toBottomOf="@+id/titleDescFaqInfoText" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/txtTicketStatusTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Status"
+        android:visibility="gone"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtTicketStatusDesc"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/textview_background"
+        android:fontFamily="@font/roboto_regular"
+        android:padding="10dp"
+        android:text="Status"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTicketStatusTitle" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

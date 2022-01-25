@@ -50,9 +50,4 @@ public class DashboardActivity extends MenuAppActivity implements RecyclerviewOn
         }
 
     }
-
-    @Override
-    public void onLongClickListener(int position) {
-
-    }
 }

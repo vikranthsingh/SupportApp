@@ -85,10 +85,5 @@ public class QueryListFragment extends Fragment implements RecyclerviewOnClickLi
                         .commit();
                 break;
         }
-
-    }
-
-    @Override
-    public void onLongClickListener(int position) {
     }
 }

@@ -20,7 +20,7 @@ import com.example.emrsupportapp.activities.TicketTodo;
 
 public class TicketInfo_Fragment extends Fragment {
     private final TicketTodo ticketTodo;
-    private TextView titleTicketInfoText, titleDescTicketInfoText;
+    private TextView titleTicketInfoText, titleDescTicketInfoText, txtTicketStatusTitle, txtTicketStatusDesc;
     ImageView ivImageInfoTicket, ivVideoInfoTicket;
 
     public TicketInfo_Fragment(TicketTodo ticketTodo) {
@@ -37,11 +37,14 @@ public class TicketInfo_Fragment extends Fragment {
         titleDescTicketInfoText = view.findViewById(R.id.titleDescTicketInfoText);
         ivImageInfoTicket = view.findViewById(R.id.ivImageInfoTicket);
         ivVideoInfoTicket = view.findViewById(R.id.ivVideoInfoTicket);
+        txtTicketStatusTitle = view.findViewById(R.id.txtTicketStatusTitle);
+        txtTicketStatusDesc = view.findViewById(R.id.txtTicketStatusDesc);
 
         String title = ticketTodo.getTitle();
         String desc = ticketTodo.getDescription();
         String image = ticketTodo.getImagesUrl();
         String video = ticketTodo.getVideoUrl();
+        String solutionDesc = ticketTodo.getTicketStatus();
 
         titleTicketInfoText.setText(title);
         titleDescTicketInfoText.setText(desc);
@@ -55,8 +58,14 @@ public class TicketInfo_Fragment extends Fragment {
             ivVideoInfoTicket.setVisibility(View.VISIBLE);
             ivVideoInfoTicket.setImageBitmap(createVideoThumbnail(video));
         }
+        if (solutionDesc != null) {
+            txtTicketStatusTitle.setVisibility(View.VISIBLE);
+            txtTicketStatusDesc.setVisibility(View.VISIBLE);
+            txtTicketStatusDesc.setText(solutionDesc);
+        }
         return view;
     }
+
     public Bitmap createVideoThumbnail(String path) {
         return ThumbnailUtils.createVideoThumbnail(path, MediaStore.Video.Thumbnails.MICRO_KIND);
     }

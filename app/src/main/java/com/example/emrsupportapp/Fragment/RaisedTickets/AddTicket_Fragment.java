@@ -119,7 +119,8 @@ public class AddTicket_Fragment extends Fragment {
                     String desc = etTicketDescription.getText().toString();
                     String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                     String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
-                    todo = new TicketTodo(title, desc, currentDate, currentTime, selectedImagePath, selectedVideoPath, null, null);
+                    
+                    todo = new TicketTodo("CSP", title, desc, currentDate, currentTime, selectedImagePath, selectedVideoPath, null, null);
                     AsyncTaskTodo asyncTaskTodo = new AsyncTaskTodo();
                     asyncTaskTodo.execute(todo);
                     Log.i(TAG, "onClick: " + todo.toString());
@@ -202,17 +203,27 @@ public class AddTicket_Fragment extends Fragment {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                todo = DatabaseHelper.getInstance(getActivity()).todoDao().getTodoById(ticketTodo.getUid());
+                TicketTodo todo = DatabaseHelper.getInstance(getActivity()).todoDao().getTodoById(ticketTodo.getUid());
                 String solution = etTicketSolution.getText().toString();
                 String spinner = ticketStatusSpinner.getSelectedItem().toString();
-                ticketTodo.setTicketSolution(solution);
-                ticketTodo.setTicketStatus(spinner);
+                todo.setTicketSolution(solution);
+                todo.setTicketStatus(spinner);
                 if (todo != null) {
                     DatabaseHelper.getInstance(getActivity()).todoDao().updateTodo(todo);
                     Log.i(TAG, "updateATodo: " + todo.toString());
                 }
             }
         });
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Success !!");
+        builder.setMessage("Data saved successfully...");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                getFragmentManager().popBackStack();
+            }
+        });
+        builder.create().show();
         thread.start();
     }
 
