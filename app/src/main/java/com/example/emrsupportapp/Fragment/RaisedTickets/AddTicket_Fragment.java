@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
@@ -92,6 +93,7 @@ public class AddTicket_Fragment extends Fragment {
     TextView txtTicketSolution;
     Spinner ticketStatusSpinner;
     TicketTodo todo;
+    String currentImagePath = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -119,7 +121,7 @@ public class AddTicket_Fragment extends Fragment {
                     String desc = etTicketDescription.getText().toString();
                     String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                     String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
-                    
+
                     todo = new TicketTodo("CSP", title, desc, currentDate, currentTime, selectedImagePath, selectedVideoPath, null, null);
                     AsyncTaskTodo asyncTaskTodo = new AsyncTaskTodo();
                     asyncTaskTodo.execute(todo);
@@ -395,9 +397,10 @@ public class AddTicket_Fragment extends Fragment {
                 if (options[which].equals("Take Photo")) {
                     /*File file = new File(String.valueOf(photoFile));      //1 image is not good while saving
                     Uri imageUri = Uri.fromFile(file);*/
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    /*Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri); //Here image URI should not be null. It should be path where we supposed to save Image captures from camera
-                    startActivityForResult(intent, REQUEST_IMAGE_CAPTURE_PERMISSION);
+                    startActivityForResult(intent, REQUEST_IMAGE_CAPTURE_PERMISSION);*/
+                    captureImage();
                 } else if (options[which].equals("Choose from Gallery")) {
                     //To pick photo from gallery
                     Intent imagePicker = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -411,6 +414,31 @@ public class AddTicket_Fragment extends Fragment {
         });
         builder.create();
         builder.show();
+    }
+
+    public void captureImage() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File imageFile = null;
+        try {
+            imageFile = getImageFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (imageFile != null) {
+            Uri imageUri = FileProvider.getUriForFile(getActivity(), "com.example.emrsupportapp", imageFile);
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+            getActivity().startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE_PERMISSION);
+        }
+    }
+
+    private File getImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "jpg_" + timeStamp;
+        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+        currentImagePath = image.getAbsolutePath();
+        return image;
     }
 
     @Override
