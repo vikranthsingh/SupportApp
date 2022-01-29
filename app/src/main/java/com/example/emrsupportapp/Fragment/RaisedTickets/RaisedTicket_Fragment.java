@@ -307,12 +307,12 @@ public class RaisedTicket_Fragment extends Fragment implements View.OnClickListe
         transaction.commit();
     }
 
-    @Override
+    /*@Override
     public void onClickAddToFaq(int position) {
         FragmentManager manager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction().replace(R.id.container, new FaqList_Fragment()).addToBackStack(null); //Make sure before you pass this it should be initialized
         transaction.commit();
-    }
+    }*/
     /*@Override
     public void onLongClickListenerTicket(int position, TicketTodo ticketTodo) {
         Toast.makeText(getActivity(), "OnLongClick", Toast.LENGTH_SHORT).show();

@@ -90,14 +90,14 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
                             return true;
                         }
                     });
-                    menu.add("Move Ticket To FAQ").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    /*menu.add("Move Ticket To FAQ").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
                             Toast.makeText(context, "Move Ticket To FAQ", Toast.LENGTH_SHORT).show();
                             mListener.onClickAddToFaq(getAdapterPosition());
                             return true;
                         }
-                    });
+                    });*/
                 }
             });
             /*itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -124,6 +124,6 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 
     public interface RecyclerOnClickListener {
         void onClickItem(int position, TicketTodo ticketTodo);
-        void onClickAddToFaq(int position);
+        //void onClickAddToFaq(int position);
     }
 }

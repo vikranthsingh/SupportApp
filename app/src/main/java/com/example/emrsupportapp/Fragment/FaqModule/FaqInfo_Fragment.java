@@ -7,12 +7,9 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +19,7 @@ import android.widget.TextView;
 import com.example.emrsupportapp.ImageActivity;
 import com.example.emrsupportapp.R;
 import com.example.emrsupportapp.VideoActivity;
-import com.example.emrsupportapp.activities.DatabaseHelper;
 import com.example.emrsupportapp.activities.FaqTodo;
-import com.example.emrsupportapp.activities.InfoImageActivity;
-import com.example.emrsupportapp.activities.InfoVideoActivity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class FaqInfo_Fragment extends Fragment {
@@ -68,19 +59,21 @@ public class FaqInfo_Fragment extends Fragment {
             ivVideoInfo.setVisibility(View.VISIBLE);
             ivVideoInfo.setImageBitmap(createVideoThumbnail(video));
         }
-        
+
         ivImageInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), InfoImageActivity.class);
-                intent.putExtra("image", image);
-                getActivity().startActivity(intent);
+                if (image != null){
+                    Intent intent = new Intent(getActivity(), ImageActivity.class);
+                    intent.putExtra("image", image);
+                    getActivity().startActivity(intent);
+                }
             }
         });
         ivVideoInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), InfoVideoActivity.class);
+                Intent intent = new Intent(getActivity(), VideoActivity.class);
                 intent.putExtra("video", video);
                 startActivity(intent);
             }

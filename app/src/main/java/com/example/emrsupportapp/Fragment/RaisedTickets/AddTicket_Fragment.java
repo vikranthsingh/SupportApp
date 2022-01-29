@@ -3,6 +3,7 @@ package com.example.emrsupportapp.Fragment.RaisedTickets;
 import static android.app.Activity.RESULT_OK;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -42,6 +44,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.emrsupportapp.BuildConfig;
 import com.example.emrsupportapp.Fragment.FaqModule.AddFaqFragment;
 import com.example.emrsupportapp.ImageActivity;
 import com.example.emrsupportapp.R;
@@ -49,6 +52,7 @@ import com.example.emrsupportapp.VideoActivity;
 import com.example.emrsupportapp.activities.DatabaseHelper;
 import com.example.emrsupportapp.activities.FaqTodo;
 import com.example.emrsupportapp.activities.TicketTodo;
+import com.example.emrsupportapp.constants.Constants;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -94,6 +98,8 @@ public class AddTicket_Fragment extends Fragment {
     Spinner ticketStatusSpinner;
     TicketTodo todo;
     String currentImagePath = null;
+    File imageFile = null;
+    private String imagePath = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -122,7 +128,7 @@ public class AddTicket_Fragment extends Fragment {
                     String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                     String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
 
-                    todo = new TicketTodo("CSP", title, desc, currentDate, currentTime, selectedImagePath, selectedVideoPath, null, null);
+                    todo = new TicketTodo(title, desc, currentDate, currentTime, selectedImagePath, selectedVideoPath, null, null);
                     AsyncTaskTodo asyncTaskTodo = new AsyncTaskTodo();
                     asyncTaskTodo.execute(todo);
                     Log.i(TAG, "onClick: " + todo.toString());
@@ -163,6 +169,20 @@ public class AddTicket_Fragment extends Fragment {
             initEdit();
         }
     }
+
+   /* void moduleType(int position) {
+        switch (position) {
+            case Constants.ID_VG:
+                ticketTodo.setModuleType("VG");
+                break;
+            case Constants.ID_VT:
+                ticketTodo.setModuleType("VT");
+                break;
+            case Constants.ID_CSP:
+                ticketTodo.setModuleType("CSP");
+                break;
+        }
+    }*/
 
     private void initEdit() {
         String image = ticketTodo.getImagesUrl();
@@ -418,27 +438,31 @@ public class AddTicket_Fragment extends Fragment {
 
     public void captureImage() {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File imageFile = null;
-        try {
-            imageFile = getImageFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (imageFile != null) {
-            Uri imageUri = FileProvider.getUriForFile(getActivity(), "com.example.emrsupportapp", imageFile);
-            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-            getActivity().startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE_PERMISSION);
+        if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            try {
+                imageFile = getImageFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (imageFile != null) {
+                Uri imageUri = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".provider", imageFile);
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                cameraIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                getActivity().startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE_PERMISSION);
+            }
         }
     }
 
     private File getImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "jpg_" + timeStamp;
-        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-        currentImagePath = image.getAbsolutePath();
-        return image;
+        String imageName = "jpg_" + timeStamp + ".jpg";
+        File folder = new File(Environment.getExternalStorageDirectory(), "EyeSmartSupportApp2022/Images");
+        if (!folder.exists())
+            folder.mkdirs();
+        File imageFile = new File(Environment.getExternalStorageDirectory(), "EyeSmartSupportApp2022/Images/" + imageName);
+        currentImagePath = imageFile.getAbsolutePath();
+        return imageFile;
     }
 
     @Override
@@ -483,12 +507,22 @@ public class AddTicket_Fragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQUEST_IMAGE_CAPTURE_PERMISSION:
-                if (resultCode == RESULT_OK && data != null) {
-                    bitmap = (Bitmap) data.getExtras().get("data");
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    /*bitmap = (Bitmap) data.getExtras().get("data");
                     saveImageToGallery(bitmap);
                     ivImageCaptureTicket.setImageBitmap(bitmap);
                     selectedImagePath = String.valueOf(getImageUri(getActivity(), bitmap));
-                    Log.i(TAG, "RESULT_OK");
+                    Log.i(TAG, "RESULT_OK");*/
+                    /*Uri uri = data.getData();
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
+                        ivImageCaptureTicket.setImageBitmap(bitmap);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }*/
+                    bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+                    imagePath = imageFile.getAbsolutePath();
+                    ivImageCaptureTicket.setImageBitmap(bitmap);
                 }
                 break;
             case REQUEST_VIDEO_CAPTURE_PERMISSION:

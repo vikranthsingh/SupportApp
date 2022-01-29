@@ -11,9 +11,6 @@ public class TicketTodo {
     @ColumnInfo(name = "uid")
     int uid;
 
-    @ColumnInfo(name = "module_type")
-    String moduleType;
-
     @ColumnInfo(name = "title")
     String title;
 
@@ -41,8 +38,7 @@ public class TicketTodo {
     public TicketTodo() {
     }
 
-    public TicketTodo(String moduleType, String title, String description, String createdDate, String createdTime, String imagesUrl, String videoUrl, String ticketSolution, String ticketStatus) {
-        this.moduleType = moduleType;
+    public TicketTodo(String title, String description, String createdDate, String createdTime, String imagesUrl, String videoUrl, String ticketSolution, String ticketStatus) {
         this.title = title;
         this.description = description;
         this.createdDate = createdDate;
@@ -59,14 +55,6 @@ public class TicketTodo {
 
     public void setUid(int uid) {
         this.uid = uid;
-    }
-
-    public String getModuleType() {
-        return moduleType;
-    }
-
-    public void setModuleType(String moduleType) {
-        this.moduleType = moduleType;
     }
 
     public String getTitle() {
@@ -137,7 +125,6 @@ public class TicketTodo {
     public String toString() {
         return "TicketTodo{" +
                 "uid=" + uid +
-                ", moduleType='" + moduleType + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", createdDate='" + createdDate + '\'' +
