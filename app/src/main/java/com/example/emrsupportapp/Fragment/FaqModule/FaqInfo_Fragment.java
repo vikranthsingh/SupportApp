@@ -63,7 +63,7 @@ public class FaqInfo_Fragment extends Fragment {
         ivImageInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (image != null){
+                if (image != null) {
                     Intent intent = new Intent(getActivity(), ImageActivity.class);
                     intent.putExtra("image", image);
                     getActivity().startActivity(intent);
@@ -73,9 +73,7 @@ public class FaqInfo_Fragment extends Fragment {
         ivVideoInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), VideoActivity.class);
-                intent.putExtra("video", video);
-                startActivity(intent);
+                moveToVideoDisplayActivity();
             }
         });
 
@@ -84,5 +82,12 @@ public class FaqInfo_Fragment extends Fragment {
 
     public Bitmap createVideoThumbnail(String path) {
         return ThumbnailUtils.createVideoThumbnail(path, MediaStore.Video.Thumbnails.MICRO_KIND);
+    }
+
+    private void moveToVideoDisplayActivity() {
+        final Uri uri = Uri.parse(faqTodo.getVideoUrl());
+        Intent playIntent = new Intent(getActivity(), VideoActivity.class);
+        playIntent.putExtra("uri", uri.toString());
+        startActivity(playIntent);
     }
 }

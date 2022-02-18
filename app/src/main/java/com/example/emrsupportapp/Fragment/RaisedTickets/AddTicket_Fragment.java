@@ -565,7 +565,7 @@ public class AddTicket_Fragment extends Fragment {
             return null;
         }
         String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getActivity().getContentResolver().query(uri, projection, null, null, null);
+        Cursor cursor = getActivity().getApplicationContext().getContentResolver().query(uri, projection, null, null, null);
         if (cursor != null) {
             int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             cursor.moveToFirst();

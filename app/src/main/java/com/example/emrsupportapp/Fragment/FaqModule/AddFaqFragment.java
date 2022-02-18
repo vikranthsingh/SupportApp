@@ -14,6 +14,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -313,7 +314,7 @@ public class AddFaqFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQUEST_IMAGE_CAPTURE_PERMISSION:
-                if (resultCode == RESULT_OK && data!= null) {
+                if (resultCode == RESULT_OK && data != null) {
                     bitmap = (Bitmap) data.getExtras().get("data");
                     saveImageToGallery(bitmap);
                     ivImageCapture.setImageBitmap(bitmap);
@@ -388,14 +389,29 @@ public class AddFaqFragment extends Fragment {
                     Intent imagePicker = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(imagePicker, REQUEST_IMAGE_PICKER_PERMISSION);
                 } else if (options[which].equals("View Image")) {
-                    Intent intent = new Intent(getActivity(), ImageActivity.class);
+                    /*Intent intent = new Intent(getActivity(), ImageActivity.class);
                     intent.putExtra("bitmap", bitmap);
-                    getActivity().startActivity(intent);
+                    getActivity().startActivity(intent);*/
+                    showImageAlertDialog();
                 }
             }
         });
         builder.create();
         builder.show();
+    }
+
+    private void showImageAlertDialog() {
+        ImageView imageView = new ImageView(getActivity());
+        imageView.setImageBitmap(bitmap);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.setView(imageView);
+        builder.create().show();
     }
 
     private void selectVideo() {

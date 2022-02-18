@@ -1,5 +1,6 @@
 package com.example.emrsupportapp.Fragment.TrainingModule;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.emrsupportapp.R;
+import com.example.emrsupportapp.VideoActivity;
 import com.example.emrsupportapp.activities.TrainingTodo;
 
 
@@ -53,10 +55,23 @@ public class TrainingInfo_Fragment extends Fragment {
             ivVideoInfoTraining.setVisibility(View.VISIBLE);
             ivVideoInfoTraining.setImageBitmap(createVideoThumbnail(video));
         }
+        ivVideoInfoTraining.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moveToVideoDisplayActivity();
+            }
+        });
         return view;
     }
 
     public Bitmap createVideoThumbnail(String path) {
         return ThumbnailUtils.createVideoThumbnail(path, MediaStore.Video.Thumbnails.MICRO_KIND);
+    }
+
+    private void moveToVideoDisplayActivity() {
+        final Uri uri = Uri.parse(trainingTodo.getVideoUrl());
+        Intent playIntent = new Intent(getActivity(), VideoActivity.class);
+        playIntent.putExtra("uri", uri.toString());
+        startActivity(playIntent);
     }
 }

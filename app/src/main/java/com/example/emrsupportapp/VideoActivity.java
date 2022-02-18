@@ -24,7 +24,7 @@ public class VideoActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            Uri uri = Uri.parse(bundle.getString("uri"));
+            Uri uri = Uri.parse(getIntent().getExtras().getString("uri"));
             videoView.setVideoURI(uri);
             MediaController mediaController = new MediaController(this);
             mediaController.setAnchorView(videoView);

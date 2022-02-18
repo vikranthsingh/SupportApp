@@ -1,5 +1,6 @@
 package com.example.emrsupportapp.Fragment.RaisedTickets;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.emrsupportapp.R;
+import com.example.emrsupportapp.VideoActivity;
 import com.example.emrsupportapp.activities.TicketTodo;
 
 
@@ -63,10 +65,23 @@ public class TicketInfo_Fragment extends Fragment {
             txtTicketStatusDesc.setVisibility(View.VISIBLE);
             txtTicketStatusDesc.setText(solutionDesc);
         }
+        ivVideoInfoTicket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moveToVideoDisplayActivity();
+            }
+        });
         return view;
     }
 
     public Bitmap createVideoThumbnail(String path) {
         return ThumbnailUtils.createVideoThumbnail(path, MediaStore.Video.Thumbnails.MICRO_KIND);
+    }
+
+    private void moveToVideoDisplayActivity() {
+        final Uri uri = Uri.parse(ticketTodo.getVideoUrl());
+        Intent playIntent = new Intent(getActivity(), VideoActivity.class);
+        playIntent.putExtra("uri", uri.toString());
+        startActivity(playIntent);
     }
 }
