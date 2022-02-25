@@ -128,7 +128,7 @@ public class AddTicket_Fragment extends Fragment {
                     String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                     String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
 
-                    todo = new TicketTodo(title, desc, currentDate, currentTime, selectedImagePath, selectedVideoPath, null, null);
+                    todo = new TicketTodo(title, desc, currentDate, currentTime, imagePath, selectedVideoPath, null, null);
                     AsyncTaskTodo asyncTaskTodo = new AsyncTaskTodo();
                     asyncTaskTodo.execute(todo);
                     Log.i(TAG, "onClick: " + todo.toString());
@@ -448,7 +448,7 @@ public class AddTicket_Fragment extends Fragment {
                 Uri imageUri = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".provider", imageFile);
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 cameraIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                getActivity().startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE_PERMISSION);
+                this.startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE_PERMISSION);
             }
         }
     }
@@ -457,10 +457,10 @@ public class AddTicket_Fragment extends Fragment {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageName = "jpg_" + timeStamp + ".jpg";
-        File folder = new File(Environment.getExternalStorageDirectory(), "EyeSmartSupportApp2022/Images");
+        File folder = new File(Environment.getExternalStorageDirectory()+"/DCIM/EyeSmartSupportApp/2022/Images");
         if (!folder.exists())
             folder.mkdirs();
-        File imageFile = new File(Environment.getExternalStorageDirectory(), "EyeSmartSupportApp2022/Images/" + imageName);
+        File imageFile = new File(Environment.getExternalStorageDirectory()+"/DCIM/EyeSmartSupportApp/2022/Images/" + imageName);
         currentImagePath = imageFile.getAbsolutePath();
         return imageFile;
     }
@@ -507,7 +507,7 @@ public class AddTicket_Fragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQUEST_IMAGE_CAPTURE_PERMISSION:
-                if (resultCode == Activity.RESULT_OK && data != null) {
+                if (resultCode == Activity.RESULT_OK && imageFile.exists()) {
                     /*bitmap = (Bitmap) data.getExtras().get("data");
                     saveImageToGallery(bitmap);
                     ivImageCaptureTicket.setImageBitmap(bitmap);
@@ -521,7 +521,7 @@ public class AddTicket_Fragment extends Fragment {
                         e.printStackTrace();
                     }*/
                     bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-                    imagePath = imageFile.getAbsolutePath();
+                    imagePath = imageFile.getAbsolutePath(); //imagePath save this is db
                     ivImageCaptureTicket.setImageBitmap(bitmap);
                 }
                 break;
