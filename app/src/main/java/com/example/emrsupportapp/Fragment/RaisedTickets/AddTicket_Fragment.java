@@ -53,6 +53,7 @@ import com.example.emrsupportapp.activities.DatabaseHelper;
 import com.example.emrsupportapp.activities.FaqTodo;
 import com.example.emrsupportapp.activities.TicketTodo;
 import com.example.emrsupportapp.constants.Constants;
+import com.example.emrsupportapp.enums.ModuleType;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -127,8 +128,8 @@ public class AddTicket_Fragment extends Fragment {
                     String desc = etTicketDescription.getText().toString();
                     String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                     String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
-
-                    todo = new TicketTodo(title, desc, currentDate, currentTime, imagePath, selectedVideoPath, null, null);
+                    //String moduleType = getArguments().getString("key");
+                    todo = new TicketTodo(title, "VG", desc, currentDate, currentTime, imagePath, selectedVideoPath, null, null);
                     AsyncTaskTodo asyncTaskTodo = new AsyncTaskTodo();
                     asyncTaskTodo.execute(todo);
                     Log.i(TAG, "onClick: " + todo.toString());
@@ -201,8 +202,9 @@ public class AddTicket_Fragment extends Fragment {
         if (solution != null) {
             etTicketSolution.setText(solution);
         }
-        if (image != null) {
+        if (image != null && !image.isEmpty()) {
             ivImageCaptureTicket.setImageURI(Uri.parse(image));
+
         }
         if (video != null) {
             ivVideoCaptureTicket.setImageBitmap(createVideoThumbnail(video));
@@ -457,10 +459,10 @@ public class AddTicket_Fragment extends Fragment {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageName = "jpg_" + timeStamp + ".jpg";
-        File folder = new File(Environment.getExternalStorageDirectory()+"/DCIM/EyeSmartSupportApp/2022/Images");
+        File folder = new File(Environment.getExternalStorageDirectory() + "/DCIM/EyeSmartSupportApp/2022/Images");
         if (!folder.exists())
             folder.mkdirs();
-        File imageFile = new File(Environment.getExternalStorageDirectory()+"/DCIM/EyeSmartSupportApp/2022/Images/" + imageName);
+        File imageFile = new File(Environment.getExternalStorageDirectory() + "/DCIM/EyeSmartSupportApp/2022/Images/" + imageName);
         currentImagePath = imageFile.getAbsolutePath();
         return imageFile;
     }

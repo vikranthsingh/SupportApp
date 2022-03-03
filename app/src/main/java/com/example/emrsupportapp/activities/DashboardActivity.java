@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.emrsupportapp.Adapter.DashboardAdapter;
+import com.example.emrsupportapp.Fragment.RaisedTickets.AddTicket_Fragment;
 import com.example.emrsupportapp.R;
 import com.example.emrsupportapp.activities.MainActivity;
 import com.example.emrsupportapp.interfaces.RecyclerviewOnClickListener;
@@ -37,6 +38,10 @@ public class DashboardActivity extends MenuAppActivity implements RecyclerviewOn
         switch (position) {
             case 0:
                 startActivity(new Intent(DashboardActivity.this, MainActivity.class));
+                Bundle bundle = new Bundle();
+                bundle.putString("key", "VG");
+                //AddTicket_Fragment addTicket_fragment = new AddTicket_Fragment();
+                //addTicket_fragment.setArguments(bundle);
                 Toast.makeText(DashboardActivity.this, "Vision Guardian", Toast.LENGTH_SHORT).show();
                 break;
             case 1:

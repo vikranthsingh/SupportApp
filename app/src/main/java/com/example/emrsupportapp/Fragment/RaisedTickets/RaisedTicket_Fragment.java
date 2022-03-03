@@ -47,6 +47,7 @@ public class RaisedTicket_Fragment extends Fragment implements View.OnClickListe
     TicketListAdapter adapter;
     List<TicketTodo> titleList = new ArrayList<>();
     List<TicketTodo> dateList = new ArrayList<>();
+    List<TicketTodo> statusList = new ArrayList<>();
     RecyclerView recyclerViewTicketList;
     private static final String TAG = "TAG";
     Calendar setCalendar;
@@ -154,6 +155,7 @@ public class RaisedTicket_Fragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtAll:
+                getAllTitleList();
                 Toast.makeText(getActivity(), "All", Toast.LENGTH_SHORT).show();
                 txtAll.setBackgroundResource(R.drawable.custom_textview_bg);
                 txtNew.setBackgroundResource(R.drawable.custom_textview_bg_unselected);
@@ -162,6 +164,7 @@ public class RaisedTicket_Fragment extends Fragment implements View.OnClickListe
                 txtRejected.setBackgroundResource(R.drawable.custom_textview_bg_unselected);
                 break;
             case R.id.txtNew:
+                getStatusList("New");
                 Toast.makeText(getActivity(), "New", Toast.LENGTH_SHORT).show();
                 txtAll.setBackgroundResource(R.drawable.custom_textview_bg_unselected);
                 txtNew.setBackgroundResource(R.drawable.custom_textview_bg);
@@ -170,6 +173,7 @@ public class RaisedTicket_Fragment extends Fragment implements View.OnClickListe
                 txtRejected.setBackgroundResource(R.drawable.custom_textview_bg_unselected);
                 break;
             case R.id.txtInProgress:
+                getStatusList("In-Progress");
                 Toast.makeText(getActivity(), "InProgress", Toast.LENGTH_SHORT).show();
                 txtAll.setBackgroundResource(R.drawable.custom_textview_bg_unselected);
                 txtNew.setBackgroundResource(R.drawable.custom_textview_bg_unselected);
@@ -178,6 +182,7 @@ public class RaisedTicket_Fragment extends Fragment implements View.OnClickListe
                 txtRejected.setBackgroundResource(R.drawable.custom_textview_bg_unselected);
                 break;
             case R.id.txtResolved:
+                getStatusList("Resolved");
                 Toast.makeText(getActivity(), "Resolved", Toast.LENGTH_SHORT).show();
                 txtAll.setBackgroundResource(R.drawable.custom_textview_bg_unselected);
                 txtNew.setBackgroundResource(R.drawable.custom_textview_bg_unselected);
@@ -186,6 +191,7 @@ public class RaisedTicket_Fragment extends Fragment implements View.OnClickListe
                 txtRejected.setBackgroundResource(R.drawable.custom_textview_bg_unselected);
                 break;
             case R.id.txtRejected:
+                getStatusList("Rejected");
                 Toast.makeText(getActivity(), "Rejected", Toast.LENGTH_SHORT).show();
                 txtAll.setBackgroundResource(R.drawable.custom_textview_bg_unselected);
                 txtNew.setBackgroundResource(R.drawable.custom_textview_bg_unselected);
@@ -216,9 +222,9 @@ public class RaisedTicket_Fragment extends Fragment implements View.OnClickListe
     private void filter(String text) {
         List<TicketTodo> filteredList = new ArrayList<>();
         if (text.toString().isEmpty()) {
-            filteredList.addAll(titleList);
+            filteredList.addAll(statusList);
         } else {
-            for (TicketTodo search : titleList) {
+            for (TicketTodo search : statusList) {
                 if (search.getTitle().toLowerCase().contains(text.toString().toLowerCase())) {
                     filteredList.add(search);
                 }
@@ -293,31 +299,47 @@ public class RaisedTicket_Fragment extends Fragment implements View.OnClickListe
         thread.start();
     }
 
+    public void getStatusList(String status) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                statusList = DatabaseHelper.getInstance(getActivity()).todoDao().getStatusList(status);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.refresh(statusList);
+                    }
+                });
+            }
+        });
+        thread.start();
+    }
+
     @Override
     public void onClickListenerTicket(int position, TicketTodo ticketTodo) {
         FragmentManager manager = getActivity().getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction().replace(R.id.container, new TicketInfo_Fragment(ticketTodo)).addToBackStack(null); //Make sure before you pass this it should be initialized
+        FragmentTransaction transaction = manager.beginTransaction().replace(R.id.container, new TicketInfo_Fragment(ticketTodo)).addToBackStack(null);
         transaction.commit();
     }
 
     @Override
     public void onClickItem(int position, TicketTodo ticketTodo) {
         FragmentManager manager = getActivity().getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction().replace(R.id.container, new AddTicket_Fragment(ticketTodo)).addToBackStack(null); //Make sure before you pass this it should be initialized
+        FragmentTransaction transaction = manager.beginTransaction().replace(R.id.container, new AddTicket_Fragment(ticketTodo)).addToBackStack(null);
         transaction.commit();
     }
 
     /*@Override
     public void onClickAddToFaq(int position) {
         FragmentManager manager = getActivity().getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction().replace(R.id.container, new FaqList_Fragment()).addToBackStack(null); //Make sure before you pass this it should be initialized
+        FragmentTransaction transaction = manager.beginTransaction().replace(R.id.container, new FaqList_Fragment()).addToBackStack(null);
         transaction.commit();
     }*/
     /*@Override
     public void onLongClickListenerTicket(int position, TicketTodo ticketTodo) {
         Toast.makeText(getActivity(), "OnLongClick", Toast.LENGTH_SHORT).show();
         *//*FragmentManager manager = getActivity().getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction().replace(R.id.container, new AddTicket_Fragment()).addToBackStack(null); //Make sure before you pass this it should be initialized
+        FragmentTransaction transaction = manager.beginTransaction().replace(R.id.container, new AddTicket_Fragment()).addToBackStack(null);
         transaction.commit();*//*
     }*/
 }

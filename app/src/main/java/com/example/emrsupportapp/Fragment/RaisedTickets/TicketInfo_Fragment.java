@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.emrsupportapp.ImageActivity;
 import com.example.emrsupportapp.R;
 import com.example.emrsupportapp.VideoActivity;
 import com.example.emrsupportapp.activities.TicketTodo;
@@ -51,10 +52,22 @@ public class TicketInfo_Fragment extends Fragment {
         titleTicketInfoText.setText(title);
         titleDescTicketInfoText.setText(desc);
 
-        if (image != null) {
+        if (image != null && !image.isEmpty()) {
             ivImageInfoTicket.setVisibility(View.VISIBLE);//ivImageInfo-> this one already initialzed so no chances of getting this null
             ivImageInfoTicket.setImageURI(Uri.parse(image)); //image-> this variable is initialized with null so checking null safety for this
+        } else {
+            ivImageInfoTicket.setVisibility(View.GONE);
         }
+        ivImageInfoTicket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (image != null && !image.isEmpty()) {
+                    Intent intent = new Intent(getActivity(), ImageActivity.class);
+                    intent.putExtra("image", image);
+                    startActivity(intent);
+                }
+            }
+        });
 
         if (video != null) {
             ivVideoInfoTicket.setVisibility(View.VISIBLE);

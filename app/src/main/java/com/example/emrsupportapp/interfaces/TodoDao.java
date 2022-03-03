@@ -47,4 +47,7 @@ public interface TodoDao {
     @Update
     void updateTodo(TicketTodo todo);
 
+    @Query("SELECT * FROM ticket_table WHERE ticket_status LIKE :status")
+    List<TicketTodo> getStatusList(String status);
+
 }

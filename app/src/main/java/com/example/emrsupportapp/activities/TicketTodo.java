@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.emrsupportapp.enums.ModuleType;
+
 @Entity(tableName = "ticket_table")
 public class TicketTodo {
 
@@ -35,10 +37,13 @@ public class TicketTodo {
     @ColumnInfo(name = "ticket_status")
     String ticketStatus;
 
+    @ColumnInfo(name = "module_type")
+    String moduleType;
+
     public TicketTodo() {
     }
 
-    public TicketTodo(String title, String description, String createdDate, String createdTime, String imagesUrl, String videoUrl, String ticketSolution, String ticketStatus) {
+    public TicketTodo(String title, String moduleType, String description, String createdDate, String createdTime, String imagesUrl, String videoUrl, String ticketSolution, String ticketStatus) {
         this.title = title;
         this.description = description;
         this.createdDate = createdDate;
@@ -47,6 +52,7 @@ public class TicketTodo {
         this.videoUrl = videoUrl;
         this.ticketSolution = ticketSolution;
         this.ticketStatus = ticketStatus;
+        this.moduleType = moduleType;
     }
 
     public int getUid() {
@@ -121,6 +127,14 @@ public class TicketTodo {
         this.ticketStatus = ticketStatus;
     }
 
+    public String getModuleType() {
+        return moduleType;
+    }
+
+    public void setModuleType(String moduleType) {
+        this.moduleType = moduleType;
+    }
+
     @Override
     public String toString() {
         return "TicketTodo{" +
@@ -133,6 +147,7 @@ public class TicketTodo {
                 ", videoUrl='" + videoUrl + '\'' +
                 ", ticketSolution='" + ticketSolution + '\'' +
                 ", ticketStatus='" + ticketStatus + '\'' +
+                ", moduleType='" + moduleType + '\'' +
                 '}';
     }
 }
