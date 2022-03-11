@@ -23,14 +23,16 @@
             android:id="@+id/txtAll"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="1.5"
             android:background="@drawable/custom_textview_bg"
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/roboto_medium"
             android:gravity="center"
             android:text="All"
-            android:textSize="23sp" />
+            android:textAllCaps="true"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtNew"
@@ -44,21 +46,25 @@
             android:fontFamily="@font/roboto_medium"
             android:gravity="center"
             android:text="New"
-            android:textSize="23sp" />
+            android:textAllCaps="true"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtInProgress"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
-            android:layout_weight="2"
+            android:layout_weight="2.3"
             android:background="@drawable/custom_textview_bg_unselected"
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/roboto_medium"
             android:gravity="center"
             android:text="In-Progress"
-            android:textSize="23sp" />
+            android:textAllCaps="true"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtResolved"
@@ -72,21 +78,25 @@
             android:fontFamily="@font/roboto_medium"
             android:gravity="center"
             android:text="Resolved"
-            android:textSize="23sp" />
+            android:textAllCaps="true"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtRejected"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
-            android:layout_weight="2"
+            android:layout_weight="2.2"
             android:background="@drawable/custom_textview_bg_unselected"
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/roboto_medium"
             android:gravity="center"
             android:text="Rejected"
-            android:textSize="23sp" />
+            android:textAllCaps="true"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -101,7 +111,7 @@
         android:drawableStart="@drawable/ic_search"
         android:fontFamily="@font/roboto_regular"
         android:gravity="center"
-        android:hint="Search"
+        android:hint="Search..."
         android:inputType="text"
         android:paddingStart="25dp"
         android:textColorHint="#adb5bd"

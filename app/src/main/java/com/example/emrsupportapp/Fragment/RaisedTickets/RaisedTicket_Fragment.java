@@ -143,6 +143,13 @@ public class RaisedTicket_Fragment extends Fragment implements View.OnClickListe
                 etSearch.setText("");
             }
         });
+        /*Bundle bundle = this.getArguments();
+        if (bundle != null){
+            String module = bundle.getString("VG");
+            Log.i(TAG, "onCreateView: in RaisedTicket " + module);
+        }*/
+
+
         adapter = new TicketListAdapter(getActivity(), titleList, this, this);
         recyclerViewTicketList.setAdapter(adapter);
         recyclerViewTicketList.setHasFixedSize(true);

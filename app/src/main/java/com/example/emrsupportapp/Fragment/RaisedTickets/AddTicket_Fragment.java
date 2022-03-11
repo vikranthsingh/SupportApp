@@ -51,6 +51,7 @@ import com.example.emrsupportapp.R;
 import com.example.emrsupportapp.VideoActivity;
 import com.example.emrsupportapp.activities.DatabaseHelper;
 import com.example.emrsupportapp.activities.FaqTodo;
+import com.example.emrsupportapp.activities.ModuleClass;
 import com.example.emrsupportapp.activities.TicketTodo;
 import com.example.emrsupportapp.constants.Constants;
 import com.example.emrsupportapp.enums.ModuleType;
@@ -70,6 +71,7 @@ import java.util.Objects;
 
 public class AddTicket_Fragment extends Fragment {
     private final TicketTodo ticketTodo;
+    ModuleClass moduleClass;
 
     public AddTicket_Fragment(TicketTodo ticketTodo) {
         this.ticketTodo = ticketTodo;
@@ -128,7 +130,7 @@ public class AddTicket_Fragment extends Fragment {
                     String desc = etTicketDescription.getText().toString();
                     String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                     String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
-                    //String moduleType = getArguments().getString("key");
+
                     todo = new TicketTodo(title, "VG", desc, currentDate, currentTime, imagePath, selectedVideoPath, null, null);
                     AsyncTaskTodo asyncTaskTodo = new AsyncTaskTodo();
                     asyncTaskTodo.execute(todo);

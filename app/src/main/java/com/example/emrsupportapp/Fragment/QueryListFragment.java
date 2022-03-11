@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +18,17 @@ import android.widget.Toast;
 
 import com.example.emrsupportapp.Adapter.QueryListAdapter;
 import com.example.emrsupportapp.Fragment.FaqModule.FaqList_Fragment;
+import com.example.emrsupportapp.Fragment.RaisedTickets.AddTicket_Fragment;
 import com.example.emrsupportapp.Fragment.RaisedTickets.RaisedTicket_Fragment;
 import com.example.emrsupportapp.Fragment.TrainingModule.TrainingList_Fragment;
 import com.example.emrsupportapp.R;
+import com.example.emrsupportapp.activities.ModuleClass;
 import com.example.emrsupportapp.interfaces.RecyclerviewOnClickListener;
 
 
 public class QueryListFragment extends Fragment implements RecyclerviewOnClickListener {
+    ModuleClass moduleClass;
+    private static final String TAG = "TAG";
     RecyclerView recyclerviewQueryFragment;
     String[] queryList = {"Frequent asked Questions", "Training Module", "Raised Tickets List"};
     int[] queryImages = {R.drawable.questions, R.drawable.question, R.drawable.tickets};
@@ -31,17 +36,13 @@ public class QueryListFragment extends Fragment implements RecyclerviewOnClickLi
     TrainingList_Fragment trainingFragment;
     FragmentManager manager;
     RaisedTicket_Fragment raisedTicketFragment;
+    String vgModule, vtModule, cspModule;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setHasOptionsMenu(true);
-    }
 
-    /*@Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.menu, menu);
-    }*/
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,6 +53,14 @@ public class QueryListFragment extends Fragment implements RecyclerviewOnClickLi
         recyclerviewQueryFragment.setAdapter(adapter);
         recyclerviewQueryFragment.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerviewQueryFragment.setHasFixedSize(true);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            String vgModule = bundle.getString("VG");
+            String vtModule = bundle.getString("VT");
+            String cspModule = bundle.getString("CSP");
+            Log.d(TAG, "onCreateView: " + vgModule + " " + vtModule + " " + cspModule);
+        }
+
         getActivity().setRequestedOrientation(
                 ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         return view;
@@ -79,6 +88,9 @@ public class QueryListFragment extends Fragment implements RecyclerviewOnClickLi
             case 2:
                 Toast.makeText(getActivity(), "Raised Tickets List", Toast.LENGTH_SHORT).show();
                 raisedTicketFragment = new RaisedTicket_Fragment();
+                /*Bundle bundle = new Bundle();
+                bundle.putString("VG", vgModule);
+                raisedTicketFragment.setArguments(bundle);*/
                 manager = getActivity().getSupportFragmentManager();
                 manager.beginTransaction().replace(R.id.container, new RaisedTicket_Fragment())
                         .addToBackStack(null)
