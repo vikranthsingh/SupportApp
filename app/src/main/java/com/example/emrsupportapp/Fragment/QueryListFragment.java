@@ -51,9 +51,9 @@ public class QueryListFragment extends Fragment implements RecyclerviewOnClickLi
         recyclerviewQueryFragment.setAdapter(adapter);
         recyclerviewQueryFragment.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerviewQueryFragment.setHasFixedSize(true);
-        Bundle bundle = this.getArguments();
+        bundle = this.getArguments();
         if (bundle != null) {
-            moduleType = bundle.getString("moduleType");  //Like this you have to get module type. compare with "moduleType" field. It may contain VG,VT or SCP based on Click..Done will try okay..thank you welcome bro
+            moduleType = bundle.getString("moduleType");  //Like this you have to get module type. compare with "moduleType" field. It may contain VG,VT or SCP based on Click.
            /* String vgModule = bundle.getString("VG");
             String vtModule = bundle.getString("VT");
             String cspModule = bundle.getString("CSP");
@@ -76,7 +76,7 @@ public class QueryListFragment extends Fragment implements RecyclerviewOnClickLi
                 Log.i(TAG, "onClickListener: " + moduleType);
                 faqListFragment.setArguments(bundle);
                 manager = getActivity().getSupportFragmentManager();
-                manager.beginTransaction().replace(R.id.container, new FaqList_Fragment())
+                manager.beginTransaction().replace(R.id.container, faqListFragment)
                         .addToBackStack(null)
                         .commit();
                 break;
@@ -88,7 +88,7 @@ public class QueryListFragment extends Fragment implements RecyclerviewOnClickLi
                 Log.i(TAG, "onClickListener: " + moduleType);
                 trainingFragment.setArguments(bundle);
                 manager = getActivity().getSupportFragmentManager();
-                manager.beginTransaction().replace(R.id.container, new TrainingList_Fragment())
+                manager.beginTransaction().replace(R.id.container, trainingFragment)
                         .addToBackStack(null)
                         .commit();
                 break;
