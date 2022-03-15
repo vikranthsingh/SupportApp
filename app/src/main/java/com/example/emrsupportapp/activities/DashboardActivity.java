@@ -36,14 +36,14 @@ public class DashboardActivity extends MenuAppActivity implements RecyclerviewOn
         recyclerViewDashboard.setHasFixedSize(true);
 
     }
-
+//From here passing the module type to main activity
     @Override
     public void onClickListener(int position) {
         switch (position) {
             case Constants.ID_VG:
                 Intent vgIntent = new Intent(DashboardActivity.this, MainActivity.class);
                 Bundle extras = new Bundle();
-                extras.putString("VG", ModuleType.VG.toString());
+                extras.putString("moduleType", ModuleType.VG.toString());
                 vgIntent.putExtras(extras);
                 Toast.makeText(DashboardActivity.this, ModuleType.VG.toString(), Toast.LENGTH_SHORT).show();
                 startActivity(vgIntent);
@@ -51,7 +51,7 @@ public class DashboardActivity extends MenuAppActivity implements RecyclerviewOn
             case Constants.ID_VT:
                 Intent vtIntent = new Intent(DashboardActivity.this, MainActivity.class);
                 Bundle vtExtras = new Bundle();
-                vtExtras.putString("VT", ModuleType.VT.toString());
+                vtExtras.putString("moduleType", ModuleType.VT.toString());
                 vtIntent.putExtras(vtExtras);
                 Toast.makeText(DashboardActivity.this, ModuleType.VT.toString(), Toast.LENGTH_SHORT).show();
                 startActivity(vtIntent);
@@ -59,7 +59,7 @@ public class DashboardActivity extends MenuAppActivity implements RecyclerviewOn
             case Constants.ID_CSP:
                 Intent cspIntent = new Intent(DashboardActivity.this, MainActivity.class);
                 Bundle cspExtras = new Bundle();
-                cspExtras.putString("CSP", ModuleType.CSP.toString());
+                cspExtras.putString("moduleType", ModuleType.CSP.toString());
                 cspIntent.putExtras(cspExtras);
                 Toast.makeText(DashboardActivity.this, ModuleType.CSP.toString(), Toast.LENGTH_SHORT).show();
                 startActivity(cspIntent);

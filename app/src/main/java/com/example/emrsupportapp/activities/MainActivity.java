@@ -26,27 +26,30 @@ public class MainActivity extends MenuAppActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+//here retreving it
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        String moduleVG = extras.getString("VG");
+        String moduleType = extras.getString("moduleType");
+        /*String moduleVG = extras.getString("VG");
         String moduleVT = extras.getString("VT");
         String moduleCSP = extras.getString("CSP");
-        Log.i(TAG, "onCreate: " + moduleVG + " " + moduleVT + " " + moduleCSP);
+        Log.i(TAG, "onCreate: " + moduleVG + " " + moduleVT + " " + moduleCSP);*/
 
 
         QueryListFragment queryListFragment = new QueryListFragment();
         Bundle bundle = new Bundle();
-        if (moduleVG.equals("VG")) {
+        bundle.putString("moduleType", moduleType);
+        queryListFragment.setArguments(bundle);
+        /*if (moduleVG!=null && moduleVG.equals("VG")) {
             bundle.putString("VG", moduleVG);
             queryListFragment.setArguments(bundle);
-        } else if (moduleVT.equals("VT")) {
+        } else if (moduleVT!=null && moduleVT.equals("VT")) {
             bundle.putString("VT", moduleVT);
             queryListFragment.setArguments(bundle);
-        } else if (moduleCSP.equals("CSP")) {
+        } else if (moduleCSP!=null && moduleCSP.equals("CSP")) {
             bundle.putString("CSP", moduleCSP);
             queryListFragment.setArguments(bundle);
-        }
+        }*/
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.container, queryListFragment);

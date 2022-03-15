@@ -45,16 +45,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.emrsupportapp.BuildConfig;
-import com.example.emrsupportapp.Fragment.FaqModule.AddFaqFragment;
 import com.example.emrsupportapp.ImageActivity;
 import com.example.emrsupportapp.R;
 import com.example.emrsupportapp.VideoActivity;
 import com.example.emrsupportapp.activities.DatabaseHelper;
-import com.example.emrsupportapp.activities.FaqTodo;
-import com.example.emrsupportapp.activities.ModuleClass;
 import com.example.emrsupportapp.activities.TicketTodo;
-import com.example.emrsupportapp.constants.Constants;
-import com.example.emrsupportapp.enums.ModuleType;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -71,7 +66,6 @@ import java.util.Objects;
 
 public class AddTicket_Fragment extends Fragment {
     private final TicketTodo ticketTodo;
-    ModuleClass moduleClass;
 
     public AddTicket_Fragment(TicketTodo ticketTodo) {
         this.ticketTodo = ticketTodo;
@@ -130,7 +124,7 @@ public class AddTicket_Fragment extends Fragment {
                     String desc = etTicketDescription.getText().toString();
                     String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                     String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
-
+//i need to set module type so how to get it here..i have already created a field in the db.. You passing some arguments right use that..Done so from querylist fragmen to AddTicket fragment ? Yes..
                     todo = new TicketTodo(title, "VG", desc, currentDate, currentTime, imagePath, selectedVideoPath, null, null);
                     AsyncTaskTodo asyncTaskTodo = new AsyncTaskTodo();
                     asyncTaskTodo.execute(todo);

@@ -1,6 +1,5 @@
 package com.example.emrsupportapp.Fragment;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
@@ -18,25 +17,24 @@ import android.widget.Toast;
 
 import com.example.emrsupportapp.Adapter.QueryListAdapter;
 import com.example.emrsupportapp.Fragment.FaqModule.FaqList_Fragment;
-import com.example.emrsupportapp.Fragment.RaisedTickets.AddTicket_Fragment;
 import com.example.emrsupportapp.Fragment.RaisedTickets.RaisedTicket_Fragment;
 import com.example.emrsupportapp.Fragment.TrainingModule.TrainingList_Fragment;
 import com.example.emrsupportapp.R;
-import com.example.emrsupportapp.activities.ModuleClass;
 import com.example.emrsupportapp.interfaces.RecyclerviewOnClickListener;
 
 
 public class QueryListFragment extends Fragment implements RecyclerviewOnClickListener {
-    ModuleClass moduleClass;
+
     private static final String TAG = "TAG";
     RecyclerView recyclerviewQueryFragment;
     String[] queryList = {"Frequent asked Questions", "Training Module", "Raised Tickets List"};
     int[] queryImages = {R.drawable.questions, R.drawable.question, R.drawable.tickets};
-    FaqList_Fragment fragment;
+    FaqList_Fragment faqListFragment;
     TrainingList_Fragment trainingFragment;
     FragmentManager manager;
     RaisedTicket_Fragment raisedTicketFragment;
-    String vgModule, vtModule, cspModule;
+    String vgModule, vtModule, cspModule, moduleType;
+    Bundle bundle;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,10 +53,11 @@ public class QueryListFragment extends Fragment implements RecyclerviewOnClickLi
         recyclerviewQueryFragment.setHasFixedSize(true);
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            String vgModule = bundle.getString("VG");
+            moduleType = bundle.getString("moduleType");  //Like this you have to get module type. compare with "moduleType" field. It may contain VG,VT or SCP based on Click..Done will try okay..thank you welcome bro
+           /* String vgModule = bundle.getString("VG");
             String vtModule = bundle.getString("VT");
             String cspModule = bundle.getString("CSP");
-            Log.d(TAG, "onCreateView: " + vgModule + " " + vtModule + " " + cspModule);
+            Log.d(TAG, "onCreateView: " + vgModule + " " + vtModule + " " + cspModule);*/
         }
 
         getActivity().setRequestedOrientation(
@@ -71,7 +70,11 @@ public class QueryListFragment extends Fragment implements RecyclerviewOnClickLi
         switch (position) {
             case 0:
                 Toast.makeText(getActivity(), "Frequent asked Questions", Toast.LENGTH_SHORT).show();
-                fragment = new FaqList_Fragment();
+                faqListFragment = new FaqList_Fragment();
+                bundle = new Bundle();
+                bundle.putString(moduleType, moduleType);
+                Log.i(TAG, "onClickListener: " + moduleType);
+                faqListFragment.setArguments(bundle);
                 manager = getActivity().getSupportFragmentManager();
                 manager.beginTransaction().replace(R.id.container, new FaqList_Fragment())
                         .addToBackStack(null)
@@ -80,6 +83,10 @@ public class QueryListFragment extends Fragment implements RecyclerviewOnClickLi
             case 1:
                 Toast.makeText(getActivity(), "Training Module", Toast.LENGTH_SHORT).show();
                 trainingFragment = new TrainingList_Fragment();
+                bundle = new Bundle();
+                bundle.putString(moduleType, moduleType);
+                Log.i(TAG, "onClickListener: " + moduleType);
+                trainingFragment.setArguments(bundle);
                 manager = getActivity().getSupportFragmentManager();
                 manager.beginTransaction().replace(R.id.container, new TrainingList_Fragment())
                         .addToBackStack(null)
@@ -88,11 +95,12 @@ public class QueryListFragment extends Fragment implements RecyclerviewOnClickLi
             case 2:
                 Toast.makeText(getActivity(), "Raised Tickets List", Toast.LENGTH_SHORT).show();
                 raisedTicketFragment = new RaisedTicket_Fragment();
-                /*Bundle bundle = new Bundle();
-                bundle.putString("VG", vgModule);
-                raisedTicketFragment.setArguments(bundle);*/
+                bundle = new Bundle();
+                bundle.putString(moduleType, moduleType);  // Its common for all modules.
+                Log.i(TAG, "onClickListener: " + moduleType);
+                raisedTicketFragment.setArguments(bundle); //get module Type from bundle in respective fragment.
                 manager = getActivity().getSupportFragmentManager();
-                manager.beginTransaction().replace(R.id.container, new RaisedTicket_Fragment())
+                manager.beginTransaction().replace(R.id.container, raisedTicketFragment)
                         .addToBackStack(null)
                         .commit();
                 break;
