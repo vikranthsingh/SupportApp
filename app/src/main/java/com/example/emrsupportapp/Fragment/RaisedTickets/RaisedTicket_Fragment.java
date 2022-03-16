@@ -53,6 +53,9 @@ public class RaisedTicket_Fragment extends Fragment implements View.OnClickListe
     Calendar setCalendar;
     Button btnGo, btnReset;
     EditText etSearch;
+    String moduleType;
+    Bundle bundle;
+    RaisedTicket_Fragment raisedTicketFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -143,12 +146,14 @@ public class RaisedTicket_Fragment extends Fragment implements View.OnClickListe
                 etSearch.setText("");
             }
         });
-        /*Bundle bundle = this.getArguments();
-        if (bundle != null){
-            String module = bundle.getString("VG");
-            Log.i(TAG, "onCreateView: in RaisedTicket " + module);
-        }*/
-
+        bundle = new Bundle();
+        bundle = this.getArguments();
+        if (bundle != null) {
+            moduleType = bundle.getString("moduleType");
+        }
+        raisedTicketFragment = new RaisedTicket_Fragment();
+        bundle.putString("moduleType", moduleType);
+        raisedTicketFragment.setArguments(bundle);
 
         adapter = new TicketListAdapter(getActivity(), titleList, this, this);
         recyclerViewTicketList.setAdapter(adapter);

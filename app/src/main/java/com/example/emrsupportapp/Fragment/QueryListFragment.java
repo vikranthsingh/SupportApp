@@ -51,6 +51,7 @@ public class QueryListFragment extends Fragment implements RecyclerviewOnClickLi
         recyclerviewQueryFragment.setAdapter(adapter);
         recyclerviewQueryFragment.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerviewQueryFragment.setHasFixedSize(true);
+        bundle = new Bundle();
         bundle = this.getArguments();
         if (bundle != null) {
             moduleType = bundle.getString("moduleType");  //Like this you have to get module type. compare with "moduleType" field. It may contain VG,VT or SCP based on Click.
@@ -71,10 +72,9 @@ public class QueryListFragment extends Fragment implements RecyclerviewOnClickLi
             case 0:
                 Toast.makeText(getActivity(), "Frequent asked Questions", Toast.LENGTH_SHORT).show();
                 faqListFragment = new FaqList_Fragment();
-                bundle = new Bundle();
-                bundle.putString(moduleType, moduleType);
-                Log.i(TAG, "onClickListener: " + moduleType);
+                bundle.putString("moduleType", moduleType);
                 faqListFragment.setArguments(bundle);
+                Log.i(TAG, "onClickListener: " + moduleType);
                 manager = getActivity().getSupportFragmentManager();
                 manager.beginTransaction().replace(R.id.container, faqListFragment)
                         .addToBackStack(null)
@@ -83,10 +83,9 @@ public class QueryListFragment extends Fragment implements RecyclerviewOnClickLi
             case 1:
                 Toast.makeText(getActivity(), "Training Module", Toast.LENGTH_SHORT).show();
                 trainingFragment = new TrainingList_Fragment();
-                bundle = new Bundle();
-                bundle.putString(moduleType, moduleType);
-                Log.i(TAG, "onClickListener: " + moduleType);
+                bundle.putString("moduleType", moduleType);
                 trainingFragment.setArguments(bundle);
+                Log.i(TAG, "onClickListener: " + moduleType);
                 manager = getActivity().getSupportFragmentManager();
                 manager.beginTransaction().replace(R.id.container, trainingFragment)
                         .addToBackStack(null)
@@ -95,10 +94,9 @@ public class QueryListFragment extends Fragment implements RecyclerviewOnClickLi
             case 2:
                 Toast.makeText(getActivity(), "Raised Tickets List", Toast.LENGTH_SHORT).show();
                 raisedTicketFragment = new RaisedTicket_Fragment();
-                bundle = new Bundle();
-                bundle.putString(moduleType, moduleType);  // Its common for all modules.
-                Log.i(TAG, "onClickListener: " + moduleType);
+                bundle.putString("moduleType", moduleType);  // Its common for all modules.
                 raisedTicketFragment.setArguments(bundle); //get module Type from bundle in respective fragment.
+                Log.i(TAG, "onClickListener: " + moduleType);
                 manager = getActivity().getSupportFragmentManager();
                 manager.beginTransaction().replace(R.id.container, raisedTicketFragment)
                         .addToBackStack(null)

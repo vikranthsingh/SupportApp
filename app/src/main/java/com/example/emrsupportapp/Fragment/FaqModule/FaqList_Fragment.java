@@ -45,6 +45,8 @@ public class FaqList_Fragment extends Fragment implements FaqOnClickListener {
     List<FaqTodo> dateList = new ArrayList<>();
     private static final String TAG = "TAG";
     Calendar setCalendar;
+    Bundle bundle;
+    String moduleType;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -128,6 +130,11 @@ public class FaqList_Fragment extends Fragment implements FaqOnClickListener {
         getActivity().setRequestedOrientation(
                 ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        bundle = new Bundle();
+        bundle = this.getArguments();
+        if (bundle != null) {
+            moduleType = bundle.getString("moduleType");
+        }
         adapter = new FaqListAdapter(getActivity(), titleList, this);
         recyclerViewFaqList.setAdapter(adapter);
         recyclerViewFaqList.setHasFixedSize(true);

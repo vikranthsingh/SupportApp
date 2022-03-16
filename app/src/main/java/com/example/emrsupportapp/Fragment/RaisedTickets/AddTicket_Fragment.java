@@ -97,6 +97,8 @@ public class AddTicket_Fragment extends Fragment {
     String currentImagePath = null;
     File imageFile = null;
     private String imagePath = "";
+    Bundle bundle;
+    String moduleType;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -115,7 +117,11 @@ public class AddTicket_Fragment extends Fragment {
         etTicketSolution = view.findViewById(R.id.etTicketSolution);
         txtTicketSolution = view.findViewById(R.id.txtTicketSolution);
         ticketStatusSpinner = view.findViewById(R.id.ticketStatusSpinner);
-
+        bundle = new Bundle();
+        bundle = this.getArguments();
+        if (bundle != null) {
+            moduleType = bundle.getString("moduleType");
+        }
         btnSubmitTicket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,8 +130,8 @@ public class AddTicket_Fragment extends Fragment {
                     String desc = etTicketDescription.getText().toString();
                     String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                     String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
-//i need to set module type so how to get it here..i have already created a field in the db.. You passing some arguments right use that..Done so from querylist fragmen to AddTicket fragment ? Yes..
-                    todo = new TicketTodo(title, "VG", desc, currentDate, currentTime, imagePath, selectedVideoPath, null, null);
+
+                    todo = new TicketTodo(title, moduleType, desc, currentDate, currentTime, imagePath, selectedVideoPath, null, null);
                     AsyncTaskTodo asyncTaskTodo = new AsyncTaskTodo();
                     asyncTaskTodo.execute(todo);
                     Log.i(TAG, "onClick: " + todo.toString());
@@ -166,20 +172,6 @@ public class AddTicket_Fragment extends Fragment {
             initEdit();
         }
     }
-
-   /* void moduleType(int position) {
-        switch (position) {
-            case Constants.ID_VG:
-                ticketTodo.setModuleType("VG");
-                break;
-            case Constants.ID_VT:
-                ticketTodo.setModuleType("VT");
-                break;
-            case Constants.ID_CSP:
-                ticketTodo.setModuleType("CSP");
-                break;
-        }
-    }*/
 
     private void initEdit() {
         String image = ticketTodo.getImagesUrl();

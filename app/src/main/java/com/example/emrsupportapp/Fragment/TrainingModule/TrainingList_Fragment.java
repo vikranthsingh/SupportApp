@@ -46,6 +46,8 @@ public class TrainingList_Fragment extends Fragment implements TrainingOnClickLi
     List<TrainingTodo> dateList = new ArrayList<>();
     private static final String TAG = "TAG";
     Calendar setCalendar;
+    Bundle bundle;
+    String moduleType;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -127,6 +129,12 @@ public class TrainingList_Fragment extends Fragment implements TrainingOnClickLi
                 etSearchTraining.setText("");
             }
         });
+
+        bundle = new Bundle();
+        bundle = this.getArguments();
+        if (bundle != null) {
+            moduleType = bundle.getString("moduleType");
+        }
         adapter = new TrainingListAdapter(getActivity(), titleList, this);
         recyclerViewTraining.setAdapter(adapter);
         recyclerViewTraining.setHasFixedSize(true);
