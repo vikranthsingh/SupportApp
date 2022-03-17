@@ -84,6 +84,8 @@ public class AddFaqFragment extends Fragment {
     String directoryName = "EyeSmartSupportApp";
     String selectedVideoPath;
     String selectedImagePath;
+    Bundle bundle;
+    String moduleType;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -112,6 +114,11 @@ public class AddFaqFragment extends Fragment {
         });
         getActivity().setRequestedOrientation(
                 ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        bundle = new Bundle();
+        bundle = this.getArguments();
+        if (bundle != null) {
+            moduleType = bundle.getString("moduleType");
+        }
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +127,7 @@ public class AddFaqFragment extends Fragment {
                 String desc = etFaqDescription.getText().toString();
                 String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                 String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
-                FaqTodo todo = new FaqTodo(title, desc, currentDate, currentTime, selectedImagePath, selectedVideoPath);
+                FaqTodo todo = new FaqTodo(title, desc, currentDate, currentTime, selectedImagePath, selectedVideoPath, moduleType);
                 AsyncTaskTodo asyncTaskTodo = new AsyncTaskTodo();
                 asyncTaskTodo.execute(todo);
                 Log.i(TAG, "onClick: " + todo.toString());

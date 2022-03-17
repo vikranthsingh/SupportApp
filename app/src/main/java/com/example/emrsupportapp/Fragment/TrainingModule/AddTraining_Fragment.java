@@ -78,6 +78,8 @@ public class AddTraining_Fragment extends Fragment {
     String directoryName = "EyeSmartSupportApp";
     String selectedImagePath;
     String selectedVideoPath;
+    Bundle bundle;
+    String moduleType;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -90,6 +92,11 @@ public class AddTraining_Fragment extends Fragment {
         ivImageCaptureTraining = view.findViewById(R.id.ivImageCaptureTraining);
         ivVideoCaptureTraining = view.findViewById(R.id.ivVideoCaptureTraining);
         btnSubmitTraining = view.findViewById(R.id.btnSubmitTraining);
+        bundle = new Bundle();
+        bundle = this.getArguments();
+        if (bundle != null) {
+            moduleType = bundle.getString("moduleType");
+        }
         btnSubmitTraining.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +104,7 @@ public class AddTraining_Fragment extends Fragment {
                 String trainingDesc = etTrainingDescription.getText().toString();
                 String currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                 String currentTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
-                TrainingTodo trainingTodo = new TrainingTodo(trainingTitle, trainingDesc, currentDate, currentTime, selectedImagePath, selectedVideoPath);
+                TrainingTodo trainingTodo = new TrainingTodo(trainingTitle, trainingDesc, currentDate, currentTime, selectedImagePath, selectedVideoPath, moduleType);
                 AsyncTaskTodoTraining asyncTaskTodoTraining = new AsyncTaskTodoTraining();
                 asyncTaskTodoTraining.execute(trainingTodo);
                 Log.i(TAG, "onClick: " + trainingTodo.toString());

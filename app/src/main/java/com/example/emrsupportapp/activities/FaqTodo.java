@@ -29,16 +29,19 @@ public class FaqTodo {
     @ColumnInfo(name = "videoUrl")
     String videoUrl;
 
+    @ColumnInfo(name = "module_type")
+    String moduleType;
     public FaqTodo() {
     }
 
-    public FaqTodo(String title, String description, String createdDate, String createdTime, String imagesUrl, String videoUrl) {
+    public FaqTodo(String title, String description, String createdDate, String createdTime, String imagesUrl, String videoUrl, String moduleType) {
         this.title = title;
         this.description = description;
         this.createdDate = createdDate;
         this.createdTime = createdTime;
         this.imagesUrl = imagesUrl;
         this.videoUrl = videoUrl;
+        this.moduleType = moduleType;
     }
 
     public int getUid() {
@@ -97,16 +100,25 @@ public class FaqTodo {
         this.createdTime = createdTime;
     }
 
+    public String getModuleType() {
+        return moduleType;
+    }
+
+    public void setModuleType(String moduleType) {
+        this.moduleType = moduleType;
+    }
+
     @Override
     public String toString() {
         return "FaqTodo{" +
-                "\nuid=" + uid +
+                "uid=" + uid +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", createdDate='" + createdDate + '\'' +
                 ", createdTime='" + createdTime + '\'' +
                 ", imagesUrl='" + imagesUrl + '\'' +
                 ", videoUrl='" + videoUrl + '\'' +
+                ", moduleType='" + moduleType + '\'' +
                 '}';
     }
 }
