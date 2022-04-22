@@ -1,10 +1,8 @@
 package com.example.emrsupportapp.Fragment.RaisedTickets;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,7 +14,6 @@ import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -26,11 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.emrsupportapp.Adapter.TicketListAdapter;
-import com.example.emrsupportapp.Fragment.FaqModule.FaqInfo_Fragment;
-import com.example.emrsupportapp.Fragment.FaqModule.FaqList_Fragment;
 import com.example.emrsupportapp.R;
 import com.example.emrsupportapp.activities.DatabaseHelper;
-import com.example.emrsupportapp.activities.FaqTodo;
 import com.example.emrsupportapp.activities.TicketTodo;
 import com.example.emrsupportapp.interfaces.TicketOnClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -151,6 +145,7 @@ public class RaisedTicket_Fragment extends Fragment implements View.OnClickListe
         if (bundle != null) {
             moduleType = bundle.getString("moduleType");
         }
+
         raisedTicketFragment = new RaisedTicket_Fragment();
         bundle.putString("moduleType", moduleType);
         raisedTicketFragment.setArguments(bundle);

@@ -98,7 +98,7 @@ public class AddTicket_Fragment extends Fragment {
     File imageFile = null;
     private String imagePath = "";
     Bundle bundle;
-    String moduleType;
+     String moduleType;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
