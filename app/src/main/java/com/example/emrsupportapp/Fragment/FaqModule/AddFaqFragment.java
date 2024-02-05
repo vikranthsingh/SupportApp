@@ -42,6 +42,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.emrsupportapp.BuildConfig;
 import com.example.emrsupportapp.ImageActivity;
 import com.example.emrsupportapp.R;
 import com.example.emrsupportapp.VideoActivity;
@@ -86,7 +87,8 @@ public class AddFaqFragment extends Fragment {
     String selectedImagePath;
     Bundle bundle;
     String moduleType;
-
+    String currentImagePath = null;
+    File imageFile = null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -387,10 +389,11 @@ public class AddFaqFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 if (options[which].equals("Take Photo")) {
                     /*File file = new File(String.valueOf(photoFile));      //1 image is not good while saving
-                    Uri imageUri = Uri.fromFile(file);*/
+                    Uri imageUri = Uri.fromFile(file);
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri); //Here image URI should not be null. It should be path where we supposed to save Image captures from camera
-                    startActivityForResult(intent, REQUEST_IMAGE_CAPTURE_PERMISSION);
+                    startActivityForResult(intent, REQUEST_IMAGE_CAPTURE_PERMISSION);*/
+                    captureImage();
                 } else if (options[which].equals("Choose from Gallery")) {
                     //To pick photo from gallery
                     Intent imagePicker = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -405,6 +408,33 @@ public class AddFaqFragment extends Fragment {
         });
         builder.create();
         builder.show();
+    }
+    public void captureImage() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            try {
+                imageFile = getImageFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (imageFile != null) {
+                Uri imageUri = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".provider", imageFile);
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                cameraIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                this.startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE_PERMISSION);
+            }
+        }
+    }
+    private File getImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageName = "jpg_" + timeStamp + ".jpg";
+        File folder = new File(Environment.getExternalStorageDirectory() + "/DCIM/EyeSmartSupportApp/2022/Images");
+        if (!folder.exists())
+            folder.mkdirs();
+        File imageFile = new File(Environment.getExternalStorageDirectory() + "/DCIM/EyeSmartSupportApp/2022/Images/" + imageName);
+        currentImagePath = imageFile.getAbsolutePath();
+        return imageFile;
     }
 
     private void showImageAlertDialog() {

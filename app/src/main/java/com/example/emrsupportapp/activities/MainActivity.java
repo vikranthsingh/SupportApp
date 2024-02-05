@@ -26,7 +26,6 @@ public class MainActivity extends MenuAppActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//here retreving it
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         String moduleType = extras.getString("moduleType");
